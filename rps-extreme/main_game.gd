@@ -1,56 +1,58 @@
 extends Control
-var element_selected = 0
+var element2_selected = 0
+var max_element2_selected = 1
 var match_game = 1
 var turn = 1
-var elements1 = "Player1: "
+var element2s1 = "Player1: "
 var selected = []
 func _ready():
 	$Label.text = "Player1 turn"
 	selection_start()
 func _process(_delta: float) -> void:
 	$Time_left.text = "Timer: " + str($Timer.time_left).substr(0,str($Timer.time_left).find(".")+2)
-	if(element_selected>1):
+	if(element2_selected>=max_element2_selected):
 		$Timer.stop()
 		$Timer.timeout.emit()
-		element_selected=0
+		element2_selected=0
 
 func _on_timer_timeout() -> void:
 	if(turn==1):
 		$Label.text = "Player2 turn"
 		turn = 2
-		elements1 += "Player2: "
+		element2s1 += "Player2: "
 		global.selected1 = selected
 		selected = []
 		$Timer.start()
 	else:
+		global.selected2 = selected
 		selection_end()
 		
 func _on_fire_pressed() -> void:
-	element_selected+=1
+	element2_selected+=1
 	selected.append(0)
 	turn_over($fire)
 func _on_paper_pressed() -> void:
-	element_selected+=1
+	element2_selected+=1
 	selected.append(1)
 	turn_over($paper)
 func _on_water_pressed() -> void:
-	element_selected+=1
+	element2_selected+=1
 	selected.append(2)
 	turn_over($water)
 func _on_earth_pressed() -> void:
-	element_selected+=1
+	element2_selected+=1
 	selected.append(3)
 	turn_over($earth)
 func _on_scissors_pressed() -> void:
-	element_selected+=1
+	element2_selected+=1
 	selected.append(4)
 	turn_over($scissors)
 func _on_air_pressed() -> void:
-	element_selected+=1
+	element2_selected+=1
 	selected.append(5)
 	turn_over($air)
 func _on_rock_pressed() -> void:
-	element_selected+=1
+	element2_selected+=1
 	selected.append(6)
 	turn_over($rock)
 
@@ -76,13 +78,82 @@ func selection_start():
 			pos.x = (i-8)*(250)+365
 		tween.tween_property(get_child(i),"position",pos,0.15)
 		tween.tween_property(get_child(i),"rotation",0,0.15)
+		turn_front(get_child(i))
 	$Time_left.visible = true
 	$Label.visible = true
 	turn = 1
 	match_game += 1
-	elements1 = "Player1: "
+	element2s1 = "Player1: "
 	$Timer.start()
 
 func selection_end():
 	$Time_left.visible = false
 	$Label.visible = false
+	var tween = create_tween()
+	for i in range(4,11):
+		tween.tween_property(get_child(i),"position",Vector2(615,815),0.15)
+		turn_back(get_child(i))
+	print(global.selected1)
+	print(global.selected2)
+	mmatch()
+
+func turn_front(card):
+	if(card.get_child(0).get_node("back").visible == true):
+		turn_over(card)
+	
+func turn_back(card):
+	if(card.get_child(0).get_node("back").visible == false):
+		turn_over(card)
+func mmatch():
+	print(match(global.selected1[0],global.selected2[0]))
+func match(element1,element2):
+	if(element1==0):
+		if(element2==1 or element2==2 or element2==4):
+			return element1
+		elif(element2==3 or element2==5 or element2==6):
+			return element2
+		else:
+			return null
+	elif(element1==1):
+		if(element2==2 or element2==3 or element2==5):
+			return element1
+		elif(element2==4 or element2==6 or element2==0):
+			return element2
+		else:
+			return null
+	elif(element1==2):
+		if(element2==3 or element2==4 or element2==6):
+			return element1
+		elif(element2==5 or element2==0 or element2==1):
+			return element2
+		else:
+			return null
+	elif(element1==3):
+		if(element2==4 or element2==5 or element2==0):
+			return element1
+		elif(element2==6 or element2==1 or element2==2):
+			return element2
+		else:
+			return null
+	elif(element1==4):
+		if(element2==5 or element2==6 or element2==2):
+			return element1
+		elif(element2==1 or element2==3 or element2==4):
+			return element2
+		else:
+			return null
+	elif(element1==5):
+		if(element2==6 or element2==0 or element2==2):
+			return element1
+		elif(element2==1 or element2==3 or element2==4):
+			return element2
+		else:
+			return null
+	elif(element1==6):
+		if(element2==0 or element2==1 or element2==3):
+			return element1
+		elif(element2==2 or element2==4 or element2==5):
+			return element2
+		else:
+			return null
+	return "0"
