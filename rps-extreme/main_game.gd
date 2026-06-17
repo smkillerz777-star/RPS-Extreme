@@ -5,6 +5,7 @@ var turn = 1
 var elements1 = "Player1: "
 func _ready():
 	$Label.text = "Player1 turn"
+	$water.pressed.connect(on_button_pressed.bind($water))
 func _process(_delta: float) -> void:
 	$Time_left.text = "Timer: " + str($Timer.time_left).substr(0,str($Timer.time_left).find(".")+2)
 	if(element_selected>1):
@@ -13,6 +14,7 @@ func _process(_delta: float) -> void:
 		element_selected=0
 
 func _on_timer_timeout() -> void:
+	print(match_game)
 	if(turn==1):
 		$Label.text = "Player2 turn"
 		turn = 2
@@ -22,14 +24,18 @@ func _on_timer_timeout() -> void:
 		turn = 1
 		match_game += 1
 		print(elements1)
+		if(match_game==3):
+			print("game over")
 		elements1 = "Player1: "
 	$Timer.start()
 func _on_paper_pressed() -> void:
 	element_selected+=1
+	turn_over()
 	elements1 += "paper "
 
 func _on_scissors_pressed() -> void:
 	element_selected+=1
+	get_signal_list()
 	elements1 += "scissors "
 
 func _on_rock_pressed() -> void:
@@ -52,37 +58,16 @@ func _on_air_pressed() -> void:
 	element_selected+=1
 	elements1 += "air "
 
-#details
-#we have rock paper scirssors fire water air laser
-#rock crushes scirssors,put out fire,blocks laser rock wins
-#rock covered by paper,drown in water,carried by air rock lose
-#scissors cuts paper,reflect laser,cuts throw air scirssors win
-#scirssors get crushed by rock,melts by fire,drown in water sccissors lose
-#laser cuts air, evaporates water,passes through fire laser wins
-#laser get reflected by scissors,blocked by rock,deflected by paper
-#air shifts rock,extinguish fire,carries paper 
-#air get bush bush by scissors,cutted by laser,dissolved in water
-#fire burns paper,
-#fire get extinguish by air,
-#paper covers rock,becomes boat and float in water,
-#paper get decayed by laser,cuts by scissors,get burned by fire
-#water
+func on_button_pressed(button):
+	print(button.name)
 
-#confirm things:
-#rock defeated scissors
-#scissores defeat paper
-#paper defeats rock
-#air defeates fire
-#fire defeates laser,scissors,paper
-#fire get defeated by rock,water,air
-#water defeates fire
-#laser get defeated by scissos,rock,paper
-
-#order
-#fire
-
-#laser
-#
-#
-#
-#
+func turn_over():
+	var tween = create_tween()
+	tween.tween_property($paper,"scale:x",0.0,0.15)
+	if($paper.get_child(0).get_node("back_side").visible == true):
+		$paper.get_child(0).get_node("back_side").visible = false
+		$paper.get_child(0).get_node("paper_card").visible = true
+	else:
+		$paper.get_child(0).get_node("back_side").visible = true
+		$paper.get_child(0).get_node("paper_card").visible = false
+	tween.tween_property($paper,"scale:x",1.0,0.15)

@@ -9,16 +9,27 @@
 [ext_resource type="Texture2D" uid="uid://dhb7re5yfqplb" path="res://water.png" id="7_pjytt"]
 [ext_resource type="Texture2D" uid="uid://hbg21kmy67xe" path="res://earth.png" id="8_b4rk6"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b4rk6"]
+bg_color = Color(0.6901961, 0.42352942, 0.28627452, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.7764706, 0.53333336, 0.3882353, 1)
+corner_detail = 1
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 10
+
 [node name="card" type="Node2D" unique_id=1750312630]
 script = ExtResource("1_rjlel")
 
-[node name="scissor_card" type="Node2D" parent="." unique_id=929358708]
-visible = false
-
-[node name="ColorRect" type="ColorRect" parent="scissor_card" unique_id=783344211]
+[node name="Panel" type="Panel" parent="." unique_id=836641643]
 offset_right = 190.0
 offset_bottom = 315.0
-color = Color(0.6901961, 0.42352942, 0.28627452, 1)
+theme_override_styles/panel = SubResource("StyleBoxFlat_b4rk6")
+
+[node name="scissor_card" type="Node2D" parent="." unique_id=929358708]
+visible = false
 
 [node name="Scissors" type="Sprite2D" parent="scissor_card" unique_id=1628510682]
 position = Vector2(101, 159.99998)
@@ -28,11 +39,6 @@ texture = ExtResource("2_rjlel")
 [node name="paper_card" type="Node2D" parent="." unique_id=1061040966]
 visible = false
 
-[node name="ColorRect" type="ColorRect" parent="paper_card" unique_id=1300283240]
-offset_right = 190.0
-offset_bottom = 315.0
-color = Color(0.6901961, 0.42352942, 0.28627452, 1)
-
 [node name="Paper" type="Sprite2D" parent="paper_card" unique_id=1313348182]
 position = Vector2(103.99999, 172.5)
 scale = Vector2(0.13352272, 0.23046875)
@@ -40,11 +46,6 @@ texture = ExtResource("3_q5obu")
 
 [node name="stone_card" type="Node2D" parent="." unique_id=334392551]
 visible = false
-
-[node name="ColorRect" type="ColorRect" parent="stone_card" unique_id=1353597934]
-offset_right = 190.0
-offset_bottom = 315.0
-color = Color(0.6901961, 0.42352942, 0.28627452, 1)
 
 [node name="Stone" type="Sprite2D" parent="stone_card" unique_id=2056718883]
 position = Vector2(90, 152)
@@ -54,11 +55,6 @@ texture = ExtResource("2_q5obu")
 [node name="air_card" type="Node2D" parent="." unique_id=1582463533]
 visible = false
 
-[node name="ColorRect" type="ColorRect" parent="air_card" unique_id=1443296032]
-offset_right = 190.0
-offset_bottom = 315.0
-color = Color(0.6901961, 0.42352942, 0.28627452, 1)
-
 [node name="Air" type="Sprite2D" parent="air_card" unique_id=1651154679]
 position = Vector2(98, 150)
 scale = Vector2(0.12535512, 0.22851564)
@@ -66,11 +62,6 @@ texture = ExtResource("5_fpac0")
 
 [node name="fire_card" type="Node2D" parent="." unique_id=639497926]
 visible = false
-
-[node name="ColorRect" type="ColorRect" parent="fire_card" unique_id=887913868]
-offset_right = 190.0
-offset_bottom = 315.0
-color = Color(0.6901961, 0.42352942, 0.28627452, 1)
 
 [node name="Fire" type="Sprite2D" parent="fire_card" unique_id=1705578510]
 position = Vector2(92, 158)
@@ -80,11 +71,6 @@ texture = ExtResource("6_1i5pp")
 [node name="water_card" type="Node2D" parent="." unique_id=282808017]
 visible = false
 
-[node name="ColorRect" type="ColorRect" parent="water_card" unique_id=256912525]
-offset_right = 190.0
-offset_bottom = 315.0
-color = Color(0.6901961, 0.42352942, 0.28627452, 1)
-
 [node name="Water" type="Sprite2D" parent="water_card" unique_id=1378908282]
 position = Vector2(98, 150)
 scale = Vector2(0.14382103, 0.34570313)
@@ -93,12 +79,27 @@ texture = ExtResource("7_pjytt")
 [node name="earth_card" type="Node2D" parent="." unique_id=1480298302]
 visible = false
 
-[node name="ColorRect" type="ColorRect" parent="earth_card" unique_id=437285783]
-offset_right = 190.0
-offset_bottom = 315.0
-color = Color(0.6901961, 0.42352942, 0.28627452, 1)
-
 [node name="Earth" type="Sprite2D" parent="earth_card" unique_id=1432479629]
 position = Vector2(98, 150)
 scale = Vector2(0.23650567, 0.24544267)
 texture = ExtResource("8_b4rk6")
+
+[node name="back_side" type="Node2D" parent="." unique_id=1973465737]
+
+[node name="Label" type="Label" parent="back_side" unique_id=817936417]
+offset_left = 14.0
+offset_top = 18.0
+offset_right = 385.0
+offset_bottom = 251.0
+theme_override_colors/font_color = Color(0.8784314, 0.67058825, 0.54509807, 1)
+theme_override_font_sizes/font_size = 84
+text = "RPG"
+
+[node name="Label2" type="Label" parent="back_side" unique_id=748686281]
+offset_left = 13.0
+offset_top = 141.0
+offset_right = 384.0
+offset_bottom = 374.0
+theme_override_colors/font_color = Color(0.8784314, 0.67058825, 0.54509807, 1)
+theme_override_font_sizes/font_size = 39
+text = "EXTREME"
