@@ -3,8 +3,10 @@ var element_selected = 0
 var match_game = 1
 var turn = 1
 var elements1 = "Player1: "
+var selected = []
 func _ready():
 	$Label.text = "Player1 turn"
+	selection_start()
 func _process(_delta: float) -> void:
 	$Time_left.text = "Timer: " + str($Timer.time_left).substr(0,str($Timer.time_left).find(".")+2)
 	if(element_selected>1):
@@ -13,46 +15,43 @@ func _process(_delta: float) -> void:
 		element_selected=0
 
 func _on_timer_timeout() -> void:
-	print(match_game)
 	if(turn==1):
 		$Label.text = "Player2 turn"
 		turn = 2
 		elements1 += "Player2: "
+		global.selected1 = selected
+		selected = []
+		$Timer.start()
 	else:
-		$Label.text = "Player1 turn"
-		turn = 1
-		match_game += 1
-		print(elements1)
-		if(match_game==3):
-			print("game over")
-		elements1 = "Player1: "
-	$Timer.start()
+		selection_end()
+		
 func _on_fire_pressed() -> void:
 	element_selected+=1
-	elements1 += "fire "
+	selected.append(0)
 	turn_over($fire)
 func _on_paper_pressed() -> void:
 	element_selected+=1
-	elements1 += "paper "
+	selected.append(1)
 	turn_over($paper)
 func _on_water_pressed() -> void:
 	element_selected+=1
-	elements1 += "water "
+	selected.append(2)
 	turn_over($water)
 func _on_earth_pressed() -> void:
 	element_selected+=1
+	selected.append(3)
 	turn_over($earth)
 func _on_scissors_pressed() -> void:
 	element_selected+=1
-	elements1 += "scissors "
+	selected.append(4)
 	turn_over($scissors)
 func _on_air_pressed() -> void:
 	element_selected+=1
-	elements1 += "air "
+	selected.append(5)
 	turn_over($air)
 func _on_rock_pressed() -> void:
 	element_selected+=1
-	elements1 += "rock "
+	selected.append(6)
 	turn_over($rock)
 
 func turn_over(card):
@@ -65,3 +64,25 @@ func turn_over(card):
 		card.get_child(0).get_node("back").visible = true
 		card.get_child(0).get_node(NodePath(card.name)).visible = false
 	tween.tween_property(card,"scale:x",1.0,0.15)
+
+func selection_start():
+	var tween = create_tween()
+	var pos = Vector2.ZERO
+	for i in range(4,11):
+		pos.y = ((i/4)-1)*(340)+355
+		if i<8:
+			pos.x = (i-4)*(250)+240
+		else:
+			pos.x = (i-8)*(250)+365
+		tween.tween_property(get_child(i),"position",pos,0.15)
+		tween.tween_property(get_child(i),"rotation",0,0.15)
+	$Time_left.visible = true
+	$Label.visible = true
+	turn = 1
+	match_game += 1
+	elements1 = "Player1: "
+	$Timer.start()
+
+func selection_end():
+	$Time_left.visible = false
+	$Label.visible = false

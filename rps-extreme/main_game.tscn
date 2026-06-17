@@ -23,7 +23,7 @@ grow_vertical = 2
 color = Color(0.45490196, 0.23921569, 0.16862746, 1)
 
 [node name="Timer" type="Timer" parent="." unique_id=1912111264]
-wait_time = 3.0
+wait_time = 10.0
 one_shot = true
 autostart = true
 
@@ -41,80 +41,93 @@ offset_left = -40.0
 offset_bottom = 23.0
 grow_horizontal = 0
 
-[node name="paper" type="Node2D" parent="." unique_id=1794135952]
-position = Vector2(312, 57)
-
-[node name="card" parent="paper" unique_id=1750312630 instance=ExtResource("2_yx7mw")]
-
-[node name="paper" type="Button" parent="paper" unique_id=581964840]
-offset_right = 190.0
-offset_bottom = 315.0
-
 [node name="fire" type="Node2D" parent="." unique_id=973686295]
-position = Vector2(47, 51)
+position = Vector2(615, 815)
+rotation = -0.34906584
 
 [node name="card" parent="fire" unique_id=1934161019 instance=ExtResource("2_yx7mw")]
+position = Vector2(-190, -315)
 
-[node name="fire" type="Button" parent="fire" unique_id=58777848]
-offset_right = 190.0
-offset_bottom = 315.0
+[node name="fire2" type="Button" parent="fire" unique_id=58777848]
+offset_left = -190.0
+offset_top = -315.0
+text = "
+"
+
+[node name="paper" type="Node2D" parent="." unique_id=1794135952]
+position = Vector2(615, 815)
+rotation = -0.2617994
+
+[node name="card" parent="paper" unique_id=1750312630 instance=ExtResource("2_yx7mw")]
+position = Vector2(-190, -315)
+
+[node name="paper" type="Button" parent="paper" unique_id=581964840]
+offset_left = -190.0
+offset_top = -315.0
+
+[node name="water" type="Node2D" parent="." unique_id=1034746933]
+position = Vector2(615, 815)
+rotation = -0.17453292
+
+[node name="card" parent="water" unique_id=743580832 instance=ExtResource("2_yx7mw")]
+position = Vector2(-190, -315)
+
+[node name="water" type="Button" parent="water" unique_id=1734776681]
+offset_left = -190.0
+offset_top = -315.0
+
+[node name="earth" type="Node2D" parent="." unique_id=1562308147]
+position = Vector2(615, 815)
+rotation = -0.08726646
+
+[node name="card" parent="earth" unique_id=826233208 instance=ExtResource("2_yx7mw")]
+position = Vector2(-190, -315)
+
+[node name="earth" type="Button" parent="earth" unique_id=1387256023]
+offset_left = -190.0
+offset_top = -315.0
+text = "
+"
+
+[node name="scissors" type="Node2D" parent="." unique_id=1767417697]
+position = Vector2(615, 815)
+
+[node name="card" parent="scissors" unique_id=151280979 instance=ExtResource("2_yx7mw")]
+position = Vector2(-190, -315)
+
+[node name="scissors" type="Button" parent="scissors" unique_id=851220323]
+offset_left = -190.0
+offset_top = -315.0
 text = "
 "
 
 [node name="air" type="Node2D" parent="." unique_id=287175301]
-position = Vector2(566, 48)
+position = Vector2(615, 815)
+rotation = 0.08726646
 
 [node name="card" parent="air" unique_id=886162238 instance=ExtResource("2_yx7mw")]
+position = Vector2(-190, -315)
 
 [node name="air" type="Button" parent="air" unique_id=1788246184]
-offset_right = 190.0
-offset_bottom = 315.0
-
-[node name="water" type="Node2D" parent="." unique_id=1034746933]
-position = Vector2(818, 87)
-
-[node name="card" parent="water" unique_id=743580832 instance=ExtResource("2_yx7mw")]
-
-[node name="water" type="Button" parent="water" unique_id=1734776681]
-offset_right = 190.0
-offset_bottom = 315.0
-
-[node name="earth" type="Node2D" parent="." unique_id=1562308147]
-position = Vector2(80, 388)
-
-[node name="card" parent="earth" unique_id=826233208 instance=ExtResource("2_yx7mw")]
-
-[node name="earth" type="Button" parent="earth" unique_id=1387256023]
-offset_right = 190.0
-offset_bottom = 315.0
-text = "
-"
+offset_left = -190.0
+offset_top = -315.0
 
 [node name="rock" type="Node2D" parent="." unique_id=212986369]
-position = Vector2(343, 399)
+position = Vector2(615, 815)
+rotation = 0.17453292
 
 [node name="card" parent="rock" unique_id=1585252478 instance=ExtResource("2_yx7mw")]
+position = Vector2(-190, -315)
 
 [node name="rock" type="Button" parent="rock" unique_id=186819818]
-offset_right = 190.0
-offset_bottom = 315.0
-
-[node name="scissors" type="Node2D" parent="." unique_id=1767417697]
-position = Vector2(594, 396)
-
-[node name="card" parent="scissors" unique_id=151280979 instance=ExtResource("2_yx7mw")]
-
-[node name="scissors" type="Button" parent="scissors" unique_id=851220323]
-offset_right = 190.0
-offset_bottom = 315.0
-text = "
-"
+offset_left = -190.0
+offset_top = -315.0
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="fire/fire2" to="." method="_on_fire_pressed"]
 [connection signal="pressed" from="paper/paper" to="." method="_on_paper_pressed"]
-[connection signal="pressed" from="fire/fire" to="." method="_on_fire_pressed"]
-[connection signal="pressed" from="air/air" to="." method="_on_air_pressed"]
 [connection signal="pressed" from="water/water" to="." method="_on_water_pressed"]
 [connection signal="pressed" from="earth/earth" to="." method="_on_earth_pressed"]
-[connection signal="pressed" from="rock/rock" to="." method="_on_rock_pressed"]
 [connection signal="pressed" from="scissors/scissors" to="." method="_on_scissors_pressed"]
+[connection signal="pressed" from="air/air" to="." method="_on_air_pressed"]
+[connection signal="pressed" from="rock/rock" to="." method="_on_rock_pressed"]
