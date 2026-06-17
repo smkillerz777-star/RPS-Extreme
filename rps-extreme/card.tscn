@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bdqimnhsve36w"]
+
+[ext_resource type="Script" uid="uid://bokn61fx8mqw7" path="res://card.gd" id="1_rjlel"]
+[ext_resource type="Texture2D" uid="uid://cw52cnkgogmos" path="res://stone.png" id="2_q5obu"]
+
+[node name="card" type="Node2D" unique_id=1750312630]
+script = ExtResource("1_rjlel")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1279345934]
+position = Vector2(237.99997, 193.00009)
+scale = Vector2(0.14559661, 0.18880208)
+texture = ExtResource("2_q5obu")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=783344211]
+offset_left = 196.0
+offset_top = 151.0
+offset_right = 236.0
+offset_bottom = 191.0
+color = Color(0.6901961, 0.42352942, 0.28627452, 1)
