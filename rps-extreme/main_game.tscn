@@ -41,57 +41,8 @@ offset_left = -40.0
 offset_bottom = 23.0
 grow_horizontal = 0
 
-[node name="air" type="Button" parent="." unique_id=1788246184]
-layout_mode = 0
-offset_left = 81.0
-offset_top = 320.0
-offset_right = 89.0
-offset_bottom = 328.0
-text = "air"
-
-[node name="water" type="Button" parent="." unique_id=1734776681]
-layout_mode = 0
-offset_left = 135.0
-offset_top = 320.0
-offset_right = 164.0
-offset_bottom = 351.0
-text = "water
-"
-
-[node name="earth" type="Button" parent="." unique_id=1387256023]
-layout_mode = 0
-offset_left = 214.0
-offset_top = 316.0
-offset_right = 260.0
-offset_bottom = 347.0
-text = "laser"
-
-[node name="fire" type="Button" parent="." unique_id=58777848]
-layout_mode = 0
-offset_left = 287.0
-offset_top = 316.0
-offset_right = 333.0
-offset_bottom = 347.0
-text = "fire"
-
-[node name="rock" type="Button" parent="." unique_id=186819818]
-layout_mode = 0
-offset_left = 368.0
-offset_top = 312.0
-offset_right = 414.0
-offset_bottom = 343.0
-text = "rock"
-
-[node name="scissors" type="Button" parent="." unique_id=851220323]
-layout_mode = 0
-offset_left = 441.0
-offset_top = 311.0
-offset_right = 510.0
-offset_bottom = 342.0
-text = "scissors"
-
 [node name="paper" type="Node2D" parent="." unique_id=1794135952]
-position = Vector2(674, 184)
+position = Vector2(312, 57)
 
 [node name="card" parent="paper" unique_id=1750312630 instance=ExtResource("2_yx7mw")]
 
@@ -99,10 +50,71 @@ position = Vector2(674, 184)
 offset_right = 190.0
 offset_bottom = 315.0
 
+[node name="fire" type="Node2D" parent="." unique_id=973686295]
+position = Vector2(47, 51)
+
+[node name="card" parent="fire" unique_id=1934161019 instance=ExtResource("2_yx7mw")]
+
+[node name="fire" type="Button" parent="fire" unique_id=58777848]
+offset_right = 190.0
+offset_bottom = 315.0
+text = "
+"
+
+[node name="air" type="Node2D" parent="." unique_id=287175301]
+position = Vector2(566, 48)
+
+[node name="card" parent="air" unique_id=886162238 instance=ExtResource("2_yx7mw")]
+
+[node name="air" type="Button" parent="air" unique_id=1788246184]
+offset_right = 190.0
+offset_bottom = 315.0
+
+[node name="water" type="Node2D" parent="." unique_id=1034746933]
+position = Vector2(818, 87)
+
+[node name="card" parent="water" unique_id=743580832 instance=ExtResource("2_yx7mw")]
+
+[node name="water" type="Button" parent="water" unique_id=1734776681]
+offset_right = 190.0
+offset_bottom = 315.0
+
+[node name="earth" type="Node2D" parent="." unique_id=1562308147]
+position = Vector2(80, 388)
+
+[node name="card" parent="earth" unique_id=826233208 instance=ExtResource("2_yx7mw")]
+
+[node name="earth" type="Button" parent="earth" unique_id=1387256023]
+offset_right = 190.0
+offset_bottom = 315.0
+text = "
+"
+
+[node name="rock" type="Node2D" parent="." unique_id=212986369]
+position = Vector2(343, 399)
+
+[node name="card" parent="rock" unique_id=1585252478 instance=ExtResource("2_yx7mw")]
+
+[node name="rock" type="Button" parent="rock" unique_id=186819818]
+offset_right = 190.0
+offset_bottom = 315.0
+
+[node name="scissors" type="Node2D" parent="." unique_id=1767417697]
+position = Vector2(594, 396)
+
+[node name="card" parent="scissors" unique_id=151280979 instance=ExtResource("2_yx7mw")]
+
+[node name="scissors" type="Button" parent="scissors" unique_id=851220323]
+offset_right = 190.0
+offset_bottom = 315.0
+text = "
+"
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="pressed" from="air" to="." method="_on_air_pressed"]
-[connection signal="pressed" from="earth" to="." method="_on_laser_pressed"]
-[connection signal="pressed" from="fire" to="." method="_on_fire_pressed"]
-[connection signal="pressed" from="rock" to="." method="_on_rock_pressed"]
-[connection signal="pressed" from="scissors" to="." method="_on_scissors_pressed"]
 [connection signal="pressed" from="paper/paper" to="." method="_on_paper_pressed"]
+[connection signal="pressed" from="fire/fire" to="." method="_on_fire_pressed"]
+[connection signal="pressed" from="air/air" to="." method="_on_air_pressed"]
+[connection signal="pressed" from="water/water" to="." method="_on_water_pressed"]
+[connection signal="pressed" from="earth/earth" to="." method="_on_earth_pressed"]
+[connection signal="pressed" from="rock/rock" to="." method="_on_rock_pressed"]
+[connection signal="pressed" from="scissors/scissors" to="." method="_on_scissors_pressed"]

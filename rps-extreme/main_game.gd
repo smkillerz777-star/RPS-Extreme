@@ -5,7 +5,6 @@ var turn = 1
 var elements1 = "Player1: "
 func _ready():
 	$Label.text = "Player1 turn"
-	$water.pressed.connect(on_button_pressed.bind($water))
 func _process(_delta: float) -> void:
 	$Time_left.text = "Timer: " + str($Timer.time_left).substr(0,str($Timer.time_left).find(".")+2)
 	if(element_selected>1):
@@ -28,46 +27,41 @@ func _on_timer_timeout() -> void:
 			print("game over")
 		elements1 = "Player1: "
 	$Timer.start()
-func _on_paper_pressed() -> void:
-	element_selected+=1
-	turn_over()
-	elements1 += "paper "
-
-func _on_scissors_pressed() -> void:
-	element_selected+=1
-	get_signal_list()
-	elements1 += "scissors "
-
-func _on_rock_pressed() -> void:
-	element_selected+=1
-	elements1 += "rock "
-
 func _on_fire_pressed() -> void:
 	element_selected+=1
 	elements1 += "fire "
-
-func _on_laser_pressed() -> void:
+	turn_over($fire)
+func _on_paper_pressed() -> void:
 	element_selected+=1
-	elements1 += "laser "
-
+	elements1 += "paper "
+	turn_over($paper)
 func _on_water_pressed() -> void:
 	element_selected+=1
 	elements1 += "water "
-
+	turn_over($water)
+func _on_earth_pressed() -> void:
+	element_selected+=1
+	turn_over($earth)
+func _on_scissors_pressed() -> void:
+	element_selected+=1
+	elements1 += "scissors "
+	turn_over($scissors)
 func _on_air_pressed() -> void:
 	element_selected+=1
 	elements1 += "air "
+	turn_over($air)
+func _on_rock_pressed() -> void:
+	element_selected+=1
+	elements1 += "rock "
+	turn_over($rock)
 
-func on_button_pressed(button):
-	print(button.name)
-
-func turn_over():
+func turn_over(card):
 	var tween = create_tween()
-	tween.tween_property($paper,"scale:x",0.0,0.15)
-	if($paper.get_child(0).get_node("back_side").visible == true):
-		$paper.get_child(0).get_node("back_side").visible = false
-		$paper.get_child(0).get_node("paper_card").visible = true
+	tween.tween_property(card,"scale:x",0.0,0.15)
+	if(card.get_child(0).get_node("back").visible == true):
+		card.get_child(0).get_node("back").visible = false
+		card.get_child(0).get_node(NodePath(card.name)).visible = true
 	else:
-		$paper.get_child(0).get_node("back_side").visible = true
-		$paper.get_child(0).get_node("paper_card").visible = false
-	tween.tween_property($paper,"scale:x",1.0,0.15)
+		card.get_child(0).get_node("back").visible = true
+		card.get_child(0).get_node(NodePath(card.name)).visible = false
+	tween.tween_property(card,"scale:x",1.0,0.15)

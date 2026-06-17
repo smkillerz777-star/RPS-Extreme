@@ -28,65 +28,65 @@ offset_right = 190.0
 offset_bottom = 315.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_b4rk6")
 
-[node name="scissor_card" type="Node2D" parent="." unique_id=929358708]
+[node name="scissors" type="Node2D" parent="." unique_id=929358708]
 visible = false
 
-[node name="Scissors" type="Sprite2D" parent="scissor_card" unique_id=1628510682]
+[node name="Scissors" type="Sprite2D" parent="scissors" unique_id=1628510682]
 position = Vector2(101, 159.99998)
 scale = Vector2(0.31924716, 0.35156247)
 texture = ExtResource("2_rjlel")
 
-[node name="paper_card" type="Node2D" parent="." unique_id=1061040966]
+[node name="paper" type="Node2D" parent="." unique_id=1061040966]
 visible = false
 
-[node name="Paper" type="Sprite2D" parent="paper_card" unique_id=1313348182]
+[node name="Paper" type="Sprite2D" parent="paper" unique_id=1313348182]
 position = Vector2(103.99999, 172.5)
 scale = Vector2(0.13352272, 0.23046875)
 texture = ExtResource("3_q5obu")
 
-[node name="stone_card" type="Node2D" parent="." unique_id=334392551]
+[node name="rock" type="Node2D" parent="." unique_id=334392551]
 visible = false
 
-[node name="Stone" type="Sprite2D" parent="stone_card" unique_id=2056718883]
+[node name="Stone" type="Sprite2D" parent="rock" unique_id=2056718883]
 position = Vector2(90, 152)
 scale = Vector2(0.104403414, 0.20507814)
 texture = ExtResource("2_q5obu")
 
-[node name="air_card" type="Node2D" parent="." unique_id=1582463533]
+[node name="air" type="Node2D" parent="." unique_id=1582463533]
 visible = false
 
-[node name="Air" type="Sprite2D" parent="air_card" unique_id=1651154679]
+[node name="Air" type="Sprite2D" parent="air" unique_id=1651154679]
 position = Vector2(98, 150)
 scale = Vector2(0.12535512, 0.22851564)
 texture = ExtResource("5_fpac0")
 
-[node name="fire_card" type="Node2D" parent="." unique_id=639497926]
+[node name="fire" type="Node2D" parent="." unique_id=639497926]
 visible = false
 
-[node name="Fire" type="Sprite2D" parent="fire_card" unique_id=1705578510]
+[node name="Fire" type="Sprite2D" parent="fire" unique_id=1705578510]
 position = Vector2(92, 158)
 scale = Vector2(0.2848011, 0.38867188)
 texture = ExtResource("6_1i5pp")
 
-[node name="water_card" type="Node2D" parent="." unique_id=282808017]
+[node name="water" type="Node2D" parent="." unique_id=282808017]
 visible = false
 
-[node name="Water" type="Sprite2D" parent="water_card" unique_id=1378908282]
+[node name="Water" type="Sprite2D" parent="water" unique_id=1378908282]
 position = Vector2(98, 150)
 scale = Vector2(0.14382103, 0.34570313)
 texture = ExtResource("7_pjytt")
 
-[node name="earth_card" type="Node2D" parent="." unique_id=1480298302]
+[node name="earth" type="Node2D" parent="." unique_id=1480298302]
 visible = false
 
-[node name="Earth" type="Sprite2D" parent="earth_card" unique_id=1432479629]
+[node name="Earth" type="Sprite2D" parent="earth" unique_id=1432479629]
 position = Vector2(98, 150)
 scale = Vector2(0.23650567, 0.24544267)
 texture = ExtResource("8_b4rk6")
 
-[node name="back_side" type="Node2D" parent="." unique_id=1973465737]
+[node name="back" type="Node2D" parent="." unique_id=1973465737]
 
-[node name="Label" type="Label" parent="back_side" unique_id=817936417]
+[node name="Label" type="Label" parent="back" unique_id=817936417]
 offset_left = 14.0
 offset_top = 18.0
 offset_right = 385.0
@@ -95,7 +95,7 @@ theme_override_colors/font_color = Color(0.8784314, 0.67058825, 0.54509807, 1)
 theme_override_font_sizes/font_size = 84
 text = "RPG"
 
-[node name="Label2" type="Label" parent="back_side" unique_id=748686281]
+[node name="Label2" type="Label" parent="back" unique_id=748686281]
 offset_left = 13.0
 offset_top = 141.0
 offset_right = 384.0
