@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://bpwytly5s4wmn"]
+
+[ext_resource type="Script" uid="uid://bkrt1qt7git6" path="res://main_menu.gd" id="1_06t4h"]
+
+[node name="main_menu" type="Control" unique_id=407472160]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_06t4h")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=134464312]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.5247961, 0.33746812, 0.24563959, 1)
+
+[node name="Button" type="Button" parent="." unique_id=987525538]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.96
+anchor_top = 0.978
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -47.0
+offset_top = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 31
+text = "PLAY"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

@@ -11,9 +11,14 @@ config_version=5
 [application]
 
 config/name="RPS:Extreme"
-run/main_scene="uid://b2p15r6bti4v5"
+run/main_scene="uid://bpwytly5s4wmn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=1080
+window/size/viewport_height=720
 
 [editor_plugins]
 
