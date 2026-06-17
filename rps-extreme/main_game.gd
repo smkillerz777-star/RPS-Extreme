@@ -1,5 +1,8 @@
 extends Control
 var element_selected = 0
+var match_game = 1
+var turn = 1
+var elements1 = "Player1: "
 func _ready():
 	$Label.text = "Player1 turn"
 func _process(_delta: float) -> void:
@@ -10,11 +13,45 @@ func _process(_delta: float) -> void:
 		element_selected=0
 
 func _on_timer_timeout() -> void:
-	if($Label.text == "Player1 turn"):
+	if(turn==1):
 		$Label.text = "Player2 turn"
+		turn = 2
+		elements1 += "Player2: "
 	else:
 		$Label.text = "Player1 turn"
+		turn = 1
+		match_game += 1
+		print(elements1)
+		elements1 = "Player1: "
 	$Timer.start()
+func _on_paper_pressed() -> void:
+	element_selected+=1
+	elements1 += "paper "
+
+func _on_scissors_pressed() -> void:
+	element_selected+=1
+	elements1 += "scissors "
+
+func _on_rock_pressed() -> void:
+	element_selected+=1
+	elements1 += "rock "
+
+func _on_fire_pressed() -> void:
+	element_selected+=1
+	elements1 += "fire "
+
+func _on_laser_pressed() -> void:
+	element_selected+=1
+	elements1 += "laser "
+
+func _on_water_pressed() -> void:
+	element_selected+=1
+	elements1 += "water "
+
+func _on_air_pressed() -> void:
+	element_selected+=1
+	elements1 += "air "
+
 #details
 #we have rock paper scirssors fire water air laser
 #rock crushes scirssors,put out fire,blocks laser rock wins
@@ -49,30 +86,3 @@ func _on_timer_timeout() -> void:
 #
 #
 #
-
-
-func _on_paper_pressed() -> void:
-	element_selected+=1
-
-
-func _on_scissors_pressed() -> void:
-	element_selected+=1
-
-
-func _on_rock_pressed() -> void:
-	element_selected+=1
-
-
-func _on_fire_pressed() -> void:
-	element_selected+=1
-
-
-func _on_laser_pressed() -> void:
-	element_selected+=1
-
-
-func _on_water_pressed() -> void:
-	element_selected+=1
-
-func _on_air_pressed() -> void:
-	element_selected+=1

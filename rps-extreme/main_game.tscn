@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b2p15r6bti4v5"]
 
 [ext_resource type="Script" uid="uid://bgwnuwrrvxb5r" path="res://main_game.gd" id="1_1oj5k"]
+[ext_resource type="PackedScene" uid="uid://bdqimnhsve36w" path="res://card.tscn" id="2_yx7mw"]
 
 [node name="main_game" type="Control" unique_id=721060528]
 layout_mode = 3
@@ -89,13 +90,17 @@ offset_right = 510.0
 offset_bottom = 342.0
 text = "scissors"
 
-[node name="paper" type="Button" parent="." unique_id=581964840]
-layout_mode = 0
-offset_left = 546.0
-offset_top = 311.0
-offset_right = 615.0
-offset_bottom = 342.0
-text = "paper"
+[node name="paper" type="Node2D" parent="." unique_id=1794135952]
+position = Vector2(174, -3)
+
+[node name="card" parent="paper" unique_id=1750312630 instance=ExtResource("2_yx7mw")]
+position = Vector2(683, 177)
+
+[node name="paper" type="Button" parent="paper" unique_id=581964840]
+offset_left = 684.0
+offset_top = 178.0
+offset_right = 874.0
+offset_bottom = 493.0
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="air" to="." method="_on_air_pressed"]
@@ -104,4 +109,4 @@ text = "paper"
 [connection signal="pressed" from="fire" to="." method="_on_fire_pressed"]
 [connection signal="pressed" from="rock" to="." method="_on_rock_pressed"]
 [connection signal="pressed" from="scissors" to="." method="_on_scissors_pressed"]
-[connection signal="pressed" from="paper" to="." method="_on_paper_pressed"]
+[connection signal="pressed" from="paper/paper" to="." method="_on_paper_pressed"]

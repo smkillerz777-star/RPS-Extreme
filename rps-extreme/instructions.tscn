@@ -1,0 +1,118 @@
+[gd_scene format=3 uid="uid://cg6tl5vhem8qn"]
+
+[ext_resource type="Script" uid="uid://ybwjvagn5py7" path="res://instructions.gd" id="1_7ls63"]
+
+[node name="Instructions" type="Control" unique_id=1292410311]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7ls63")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1027380291]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.45490196, 0.23921569, 0.16862746, 1)
+
+[node name="Back" type="Button" parent="." unique_id=1370110437]
+layout_mode = 1
+offset_right = 50.0
+offset_bottom = 31.0
+theme_override_font_sizes/font_size = 40
+text = "BACK"
+
+[node name="forward" type="Button" parent="." unique_id=877201420]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 40
+text = ">"
+
+[node name="backward" type="Button" parent="." unique_id=1868890567]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -8.0
+offset_right = 8.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 40
+text = "<"
+
+[node name="Label" type="Label" parent="." unique_id=729583802]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.022
+anchor_top = 0.085
+anchor_right = 0.32900003
+anchor_bottom = 0.81
+offset_right = 11.679962
+offset_bottom = 51.0
+theme_override_font_sizes/font_size = 32
+text = "FIRE:
+burns paper
+boils water
+melts scissors
+PAPER:
+absorbs water
+covers earth
+blocks air
+WATER:
+turns earth to mud
+rust scissors
+breaks down rock"
+
+[node name="Label2" type="Label" parent="." unique_id=371601840]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.342
+anchor_top = 0.085
+anchor_right = 0.65
+anchor_bottom = 0.81
+offset_right = 11.679962
+offset_bottom = 51.0
+theme_override_font_sizes/font_size = 32
+text = "EARTH:
+dulls scissors
+resists air
+buries fire
+SCISSORS:
+slices through air
+cracks rock
+cuts paper
+AIR:
+erodes rock
+blows out fire
+controls water"
+
+[node name="Label3" type="Label" parent="." unique_id=2127980990]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.342
+anchor_top = 0.085
+anchor_right = 0.65
+anchor_bottom = 0.81
+offset_left = 336.63998
+offset_top = -0.20000076
+offset_right = 348.31995
+offset_bottom = -333.2
+theme_override_font_sizes/font_size = 32
+text = "ROCK:
+smothers fire
+crushes paper
+curshes earth"
+
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]

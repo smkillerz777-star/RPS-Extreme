@@ -70,3 +70,4 @@ theme_override_colors/font_shadow_color = Color(0.7764706, 0.53333336, 0.3882353
 text = "RPS:Extreme"
 
 [connection signal="pressed" from="Play_Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Instructions_Button" to="." method="_on_instructions_button_pressed"]
