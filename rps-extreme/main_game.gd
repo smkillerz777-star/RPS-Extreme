@@ -1,11 +1,12 @@
 extends Control
-var element2_selected = 0
-var max_element2_selected = 3
+var element_selected = 0
+var max_element_selected = 3
 var match_game = 1
 var turn = 1
-var element2s1 = "Player1: "
 var selected = []
 var tween
+var score1 = 0
+var score2 = 0
 func _ready():
 	tween = create_tween()
 	label_animation(global.player1+" turn")
@@ -13,53 +14,51 @@ func _ready():
 func _process(delta: float) -> void:
 	global.time_past += delta
 	$Time_left.text = "Timer: " + str($Timer.time_left).substr(0,str($Timer.time_left).find(".")+2)
-	if(element2_selected>=max_element2_selected):
+	if(element_selected>=max_element_selected):
 		$Timer.stop()
 		$Timer.timeout.emit()
-		element2_selected=0
+		element_selected=0
 
 func _on_timer_timeout() -> void:
 	if(turn==1):
 		turn = 2
-		element2s1 += "Player2: "
 		global.selected1 = selected
 		selected = []
 		selection_end(global.selected1)
 		label_animation(global.player2+" turn")
 		selection_start()
 		$Timer.start()
-		print(turn)
 	else:
 		global.selected2 = selected
 		selection_end(global.selected2)
 		mmatch()
 		
 func _on_fire_pressed() -> void:
-	element2_selected+=1
+	element_selected+=1
 	selected.append(0)
 	turn_over($fire)
 func _on_paper_pressed() -> void:
-	element2_selected+=1
+	element_selected+=1
 	selected.append(1)
 	turn_over($paper)
 func _on_water_pressed() -> void:
-	element2_selected+=1
+	element_selected+=1
 	selected.append(2)
 	turn_over($water)
 func _on_earth_pressed() -> void:
-	element2_selected+=1
+	element_selected+=1
 	selected.append(3)
 	turn_over($earth)
 func _on_scissors_pressed() -> void:
-	element2_selected+=1
+	element_selected+=1
 	selected.append(4)
 	turn_over($scissors)
 func _on_air_pressed() -> void:
-	element2_selected+=1
+	element_selected+=1
 	selected.append(5)
 	turn_over($air)
 func _on_rock_pressed() -> void:
-	element2_selected+=1
+	element_selected+=1
 	selected.append(6)
 	turn_over($rock)
 
@@ -88,7 +87,6 @@ func selection_start():
 		turn_front(get_child(i))
 	$Time_left.visible = true
 	$Label.visible = true
-	element2s1 = "Player1: "
 	$Timer.start()
 
 func selection_end(selected_cards):
@@ -119,9 +117,22 @@ func turn_back(card):
 func mmatch():
 	print(global.selected1)
 	print(global.selected2)
-	print(match(global.selected1[0],global.selected2[0]))
+	for i in range(max_element_selected):
+		if(fight(global.selected1[i],global.selected2[i])==global.selected1[i]):
+			score1+=1
+		elif(fight(global.selected1[i],global.selected2[i])==global.selected2[i]):
+			label_animation(global.player2 + " won")
+			score2+=1
+	print(score1)
+	print(score2)
+	if(score1>score2):
+		label_animation(global.player1 + " won")
+	elif(score2>score1):
+		label_animation(global.player2 + " won")
+	else:
+		label_animation("tie")
 
-func match(element1,element2):
+func fight(element1,element2):
 	if(element1==0):
 		if(element2==1 or element2==2 or element2==4):
 			return element1
@@ -171,7 +182,7 @@ func match(element1,element2):
 			return element2
 		else:
 			return null
-	return "0"
+	return null
 func label_animation(word):
 	$Label.text = word
 	$Label.visible = false
