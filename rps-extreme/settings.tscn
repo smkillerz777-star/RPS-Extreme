@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://cpfjvboh6iijf"]
+
+[ext_resource type="Script" uid="uid://m43wxdgsyhdg" path="res://settings.gd" id="1_x2hje"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jwo76"]
+bg_color = Color(0.6901961, 0.42352942, 0.28627452, 1)
+border_width_left = 32
+border_width_top = 32
+border_width_right = 32
+border_width_bottom = 32
+border_color = Color(0.45490196, 0.23921569, 0.16862746, 1)
+border_blend = true
+
+[node name="settings" type="Control" unique_id=925157582]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_x2hje")
+
+[node name="Panel" type="Panel" parent="." unique_id=600216393]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jwo76")
+
+[node name="LineEdit" type="LineEdit" parent="." unique_id=1028867089]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.4
+anchor_top = 0.1
+anchor_right = 0.4
+anchor_bottom = 0.1
+offset_right = 168.0
+offset_bottom = 66.0
+theme_override_font_sizes/font_size = 42
+text = "3"
+
+[node name="Rounds" type="Label" parent="." unique_id=1637063082]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.1
+anchor_right = 0.3
+anchor_bottom = 0.1
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 42
+text = "Rounds :"
+
+[node name="LineEdit2" type="LineEdit" parent="." unique_id=1720435450]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.25
+anchor_right = 0.5
+anchor_bottom = 0.25
+offset_right = 168.0
+offset_bottom = 66.0
+theme_override_font_sizes/font_size = 42
+text = "3"
+
+[node name="Rounds2" type="Label" parent="." unique_id=1689736226]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.25
+anchor_right = 0.3
+anchor_bottom = 0.25
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 42
+text = "Cards Selcted:"
+
+[node name="Back" type="Button" parent="." unique_id=1270268896]
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 31.0
+theme_override_font_sizes/font_size = 40
+text = "BACK"
+
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
