@@ -20,15 +20,19 @@ func _process(delta: float) -> void:
 
 func _on_timer_timeout() -> void:
 	if(turn==1):
-		$Label.text = "Player2 turn"
 		turn = 2
 		element2s1 += "Player2: "
 		global.selected1 = selected
 		selected = []
+		selection_end(global.selected1)
+		label_animation(global.player2+" turn")
+		selection_start()
 		$Timer.start()
+		print(turn)
 	else:
 		global.selected2 = selected
-		selection_end()
+		selection_end(global.selected2)
+		mmatch()
 		
 func _on_fire_pressed() -> void:
 	element2_selected+=1
@@ -60,6 +64,8 @@ func _on_rock_pressed() -> void:
 	turn_over($rock)
 
 func turn_over(card):
+	if(tween == null or not tween.is_valid()):
+		tween = create_tween()
 	tween.tween_property(card,"scale:x",0.0,0.15)
 	if(card.get_child(0).get_node("back").visible == true):
 		tween.tween_property(card.get_child(0).get_node("back"),"visible",false,0.01)
@@ -82,30 +88,37 @@ func selection_start():
 		turn_front(get_child(i))
 	$Time_left.visible = true
 	$Label.visible = true
-	turn = 1
-	match_game += 1
 	element2s1 = "Player1: "
 	$Timer.start()
 
-func selection_end():
+func selection_end(selected_cards):
 	$Time_left.visible = false
 	$Label.visible = false
+	for i in range(0,7):
+		if(selected_cards.find(i)==-1):
+			turn_back(get_child(i+4))
 	for i in range(4,11):
 		tween.tween_property(get_child(i),"position",Vector2(615,815),0.15)
-		turn_back(get_child(i))
-	print(global.selected1)
-	print(global.selected2)
-	mmatch()
 
 func turn_front(card):
-	if(card.get_child(0).get_node("back").visible == true):
-		turn_over(card)
+	if(tween == null or not tween.is_valid()):
+		tween = create_tween()
+	tween.tween_property(card,"scale:x",0.0,0.15)
+	tween.tween_property(card.get_child(0).get_node("back"),"visible",false,0.01)
+	tween.tween_property(card.get_child(0).get_node(NodePath(card.name)),"visible",true,0.01)
+	tween.tween_property(card,"scale:x",1.0,0.15)
 	
 func turn_back(card):
-	if(card.get_child(0).get_node("back").visible == false):
-		turn_over(card)
+	if(tween == null or not tween.is_valid()):
+		tween = create_tween()
+	tween.tween_property(card,"scale:x",0.0,0.15)
+	tween.tween_property(card.get_child(0).get_node("back"),"visible",true,0.01)
+	tween.tween_property(card.get_child(0).get_node(NodePath(card.name)),"visible",false,0.01)
+	tween.tween_property(card,"scale:x",1.0,0.15)
 	
 func mmatch():
+	print(global.selected1)
+	print(global.selected2)
 	print(match(global.selected1[0],global.selected2[0]))
 
 func match(element1,element2):
@@ -165,6 +178,7 @@ func label_animation(word):
 	tween.tween_property($Label,"theme_override_font_sizes/font_size",150,0.35)
 	tween.tween_property($Label,"position",Vector2(80,250),0.35)
 	tween.tween_property($Label,"visible",true,0.15)
+	tween.tween_property($Label,"theme_override_font_sizes/font_size",16,0.15)
+	tween.tween_property($Label,"position",Vector2(980,0),0.15)
 	tween.set_trans(Tween.TRANS_SINE)
 	tween.set_ease(Tween.EASE_OUT)
-

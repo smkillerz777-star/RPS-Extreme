@@ -23,7 +23,7 @@ grow_vertical = 2
 color = Color(0.45490196, 0.23921569, 0.16862746, 1)
 
 [node name="Timer" type="Timer" parent="." unique_id=1912111264]
-wait_time = 10.0
+wait_time = 15.0
 one_shot = true
 autostart = true
 
