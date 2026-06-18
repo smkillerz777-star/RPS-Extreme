@@ -2,6 +2,7 @@ extends Control
 var element_selected = 0
 var max_element_selected = 3
 var match_game = 1
+var max_match_game = 2
 var turn = 1
 var selected = []
 var tween
@@ -20,7 +21,7 @@ func _process(delta: float) -> void:
 		element_selected=0
 
 func _on_timer_timeout() -> void:
-	if(turn==1):
+	if(turn==1 and match_game<=max_match_game):
 		turn = 2
 		global.selected1 = selected
 		selected = []
@@ -30,6 +31,9 @@ func _on_timer_timeout() -> void:
 		$Timer.start()
 	else:
 		global.selected2 = selected
+		selected = []
+		turn = 1
+		match_game+=1
 		selection_end(global.selected2)
 		mmatch()
 		
@@ -121,7 +125,6 @@ func mmatch():
 		if(fight(global.selected1[i],global.selected2[i])==global.selected1[i]):
 			score1+=1
 		elif(fight(global.selected1[i],global.selected2[i])==global.selected2[i]):
-			label_animation(global.player2 + " won")
 			score2+=1
 	print(score1)
 	print(score2)
@@ -131,6 +134,11 @@ func mmatch():
 		label_animation(global.player2 + " won")
 	else:
 		label_animation("tie")
+	if(match_game<=max_match_game):
+		label_animation(global.player1 + " turn")
+		score1 = 0
+		score2 = 0
+		selection_start()
 
 func fight(element1,element2):
 	if(element1==0):
@@ -184,12 +192,10 @@ func fight(element1,element2):
 			return null
 	return null
 func label_animation(word):
-	$Label.text = word
+	tween.tween_property($Label,"text",word,0.01)
 	$Label.visible = false
 	tween.tween_property($Label,"theme_override_font_sizes/font_size",150,0.35)
 	tween.tween_property($Label,"position",Vector2(80,250),0.35)
 	tween.tween_property($Label,"visible",true,0.15)
 	tween.tween_property($Label,"theme_override_font_sizes/font_size",16,0.15)
 	tween.tween_property($Label,"position",Vector2(980,0),0.15)
-	tween.set_trans(Tween.TRANS_SINE)
-	tween.set_ease(Tween.EASE_OUT)
