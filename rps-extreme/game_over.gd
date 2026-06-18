@@ -1,0 +1,10 @@
+extends Control
+
+func _ready():
+    $Label2.text = global.winner.to_upper() + " WON"
+
+func _on_button_pressed() -> void:
+    global.score1 = 0
+    global.score2 = 0
+    global.time_past = 0
+    get_tree().change_scene_to_file("res://main_game.tscn")

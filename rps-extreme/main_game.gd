@@ -1,8 +1,8 @@
 extends Control
 var element_selected = 0
-var max_element_selected = 3
+var max_element_selected = 1
 var match_game = 1
-var max_match_game = 2
+var max_match_game = 1
 var turn = 1
 var selected = []
 var tween
@@ -21,7 +21,7 @@ func _process(delta: float) -> void:
 		element_selected=0
 
 func _on_timer_timeout() -> void:
-	if(turn==1 and match_game<=max_match_game):
+	if(turn==1):
 		turn = 2
 		global.selected1 = selected
 		selected = []
@@ -130,8 +130,10 @@ func mmatch():
 	print(score2)
 	if(score1>score2):
 		label_animation(global.player1 + " won")
+		global.score1 += 1
 	elif(score2>score1):
 		label_animation(global.player2 + " won")
+		global.score2 += 1
 	else:
 		label_animation("tie")
 	if(match_game<=max_match_game):
@@ -139,6 +141,18 @@ func mmatch():
 		score1 = 0
 		score2 = 0
 		selection_start()
+	else: 
+		if(global.score1>global.score2):
+			global.winner = global.player1
+			game_over()
+		elif(global.score2>global.score1):
+			global.winner = global.player2
+			game_over()
+		else:
+			label_animation(global.player1 + " turn")
+			score1 = 0
+			score2 = 0
+			selection_start()
 
 func fight(element1,element2):
 	if(element1==0):
@@ -199,3 +213,6 @@ func label_animation(word):
 	tween.tween_property($Label,"visible",true,0.15)
 	tween.tween_property($Label,"theme_override_font_sizes/font_size",16,0.15)
 	tween.tween_property($Label,"position",Vector2(980,0),0.15)
+
+func game_over():
+	get_tree().change_scene_to_file("res://game_over.tscn")

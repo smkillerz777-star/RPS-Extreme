@@ -8,3 +8,4 @@ var selected2 = []
 var player1 = "player1"
 var player2 = "player2"
 var time_past = 0.0
+var winner = "player1"
