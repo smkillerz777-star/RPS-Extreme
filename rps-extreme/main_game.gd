@@ -1,14 +1,17 @@
 extends Control
 var element2_selected = 0
-var max_element2_selected = 1
+var max_element2_selected = 3
 var match_game = 1
 var turn = 1
 var element2s1 = "Player1: "
 var selected = []
+var tween
 func _ready():
-	$Label.text = "Player1 turn"
+	tween = create_tween()
+	label_animation(global.player1+" turn")
 	selection_start()
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	global.time_past += delta
 	$Time_left.text = "Timer: " + str($Timer.time_left).substr(0,str($Timer.time_left).find(".")+2)
 	if(element2_selected>=max_element2_selected):
 		$Timer.stop()
@@ -57,18 +60,16 @@ func _on_rock_pressed() -> void:
 	turn_over($rock)
 
 func turn_over(card):
-	var tween = create_tween()
 	tween.tween_property(card,"scale:x",0.0,0.15)
 	if(card.get_child(0).get_node("back").visible == true):
-		card.get_child(0).get_node("back").visible = false
-		card.get_child(0).get_node(NodePath(card.name)).visible = true
+		tween.tween_property(card.get_child(0).get_node("back"),"visible",false,0.01)
+		tween.tween_property(card.get_child(0).get_node(NodePath(card.name)),"visible",true,0.01)
 	else:
-		card.get_child(0).get_node("back").visible = true
-		card.get_child(0).get_node(NodePath(card.name)).visible = false
+		tween.tween_property(card.get_child(0).get_node("back"),"visible",true,0.01)
+		tween.tween_property(card.get_child(0).get_node(NodePath(card.name)),"visible",false,0.01)
 	tween.tween_property(card,"scale:x",1.0,0.15)
 
 func selection_start():
-	var tween = create_tween()
 	var pos = Vector2.ZERO
 	for i in range(4,11):
 		pos.y = ((i/4)-1)*(340)+355
@@ -89,7 +90,6 @@ func selection_start():
 func selection_end():
 	$Time_left.visible = false
 	$Label.visible = false
-	var tween = create_tween()
 	for i in range(4,11):
 		tween.tween_property(get_child(i),"position",Vector2(615,815),0.15)
 		turn_back(get_child(i))
@@ -104,8 +104,10 @@ func turn_front(card):
 func turn_back(card):
 	if(card.get_child(0).get_node("back").visible == false):
 		turn_over(card)
+	
 func mmatch():
 	print(match(global.selected1[0],global.selected2[0]))
+
 func match(element1,element2):
 	if(element1==0):
 		if(element2==1 or element2==2 or element2==4):
@@ -157,3 +159,12 @@ func match(element1,element2):
 		else:
 			return null
 	return "0"
+func label_animation(word):
+	$Label.text = word
+	$Label.visible = false
+	tween.tween_property($Label,"theme_override_font_sizes/font_size",150,0.35)
+	tween.tween_property($Label,"position",Vector2(80,250),0.35)
+	tween.tween_property($Label,"visible",true,0.15)
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.set_ease(Tween.EASE_OUT)
+

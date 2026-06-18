@@ -5,3 +5,6 @@ var score1 = 0
 var score2 = 0
 var selected1 = []
 var selected2 = []
+var player1 = "player1"
+var player2 = "player2"
+var time_past = 0.0
