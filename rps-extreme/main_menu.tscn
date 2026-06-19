@@ -99,11 +99,16 @@ theme_override_colors/font_hover_pressed_color = Color(0.8784314, 0.67058825, 0.
 theme_override_font_sizes/font_size = 31
 text = "SETTINGS"
 
-[node name="Node2D" type="Node2D" parent="." unique_id=955312435]
-position = Vector2(-33, -224)
+[node name="Node2D" type="Control" parent="." unique_id=1255054881]
+layout_mode = 1
+anchor_left = 0.5
+anchor_top = 0.85
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [node name="fire" type="Node2D" parent="Node2D" unique_id=7398915]
-position = Vector2(615, 815)
 rotation = -0.34906584
 scale = Vector2(0.99999994, 0.99999994)
 
@@ -111,29 +116,25 @@ scale = Vector2(0.99999994, 0.99999994)
 position = Vector2(-190, -315)
 
 [node name="paper" type="Node2D" parent="Node2D" unique_id=684088097]
-position = Vector2(615, 815)
 rotation = -0.17453294
-scale = Vector2(0.99999994, 0.99999994)
+scale = Vector2(0.9999999, 0.9999999)
 
 [node name="card" parent="Node2D/paper" unique_id=494761228 instance=ExtResource("2_7vrkn")]
 position = Vector2(-190, -315)
 
 [node name="water" type="Node2D" parent="Node2D" unique_id=584011752]
-position = Vector2(615, 815)
 
 [node name="card" parent="Node2D/water" unique_id=686482755 instance=ExtResource("2_7vrkn")]
 position = Vector2(-190, -315)
 
 [node name="earth" type="Node2D" parent="Node2D" unique_id=1643119339]
-position = Vector2(615, 815)
 rotation = 0.17453294
-scale = Vector2(0.99999994, 0.99999994)
+scale = Vector2(0.9999999, 0.9999999)
 
 [node name="card" parent="Node2D/earth" unique_id=1480626121 instance=ExtResource("2_7vrkn")]
 position = Vector2(-190, -315)
 
 [node name="scissors" type="Node2D" parent="Node2D" unique_id=2100886456]
-position = Vector2(615, 815)
 rotation = 0.34906584
 scale = Vector2(0.99999994, 0.99999994)
 
@@ -141,16 +142,14 @@ scale = Vector2(0.99999994, 0.99999994)
 position = Vector2(-190, -315)
 
 [node name="air" type="Node2D" parent="Node2D" unique_id=36831156]
-position = Vector2(615, 815)
 rotation = 0.5235988
 
 [node name="card" parent="Node2D/air" unique_id=1959798357 instance=ExtResource("2_7vrkn")]
 position = Vector2(-190, -315)
 
 [node name="rock" type="Node2D" parent="Node2D" unique_id=1532266380]
-position = Vector2(615, 815)
 rotation = 0.6981317
-scale = Vector2(0.99999994, 0.99999994)
+scale = Vector2(0.9999999, 0.9999999)
 
 [node name="card" parent="Node2D/rock" unique_id=29906344 instance=ExtResource("2_7vrkn")]
 position = Vector2(-190, -315)

@@ -39,6 +39,8 @@ anchor_right = 0.3
 anchor_bottom = 0.25
 offset_right = 181.0
 offset_bottom = 58.0
+theme_override_colors/font_color = Color(0.8784314, 0.67058825, 0.54509807, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 42
 text = "Player1 name:"
 
@@ -55,6 +57,7 @@ theme_override_font_sizes/font_size = 42
 placeholder_text = "name"
 
 [node name="Label" type="Label" parent="." unique_id=1669479507]
+visible = false
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -62,6 +65,8 @@ anchor_right = 1.0
 offset_left = -100.0
 offset_bottom = 23.0
 grow_horizontal = 0
+theme_override_colors/font_color = Color(0.8784314, 0.67058825, 0.54509807, 1)
+theme_override_colors/font_shadow_color = Color(0.7764706, 0.53333336, 0.3882353, 1)
 theme_override_font_sizes/font_size = 16
 text = "PLayer1 turn"
 
@@ -163,6 +168,8 @@ anchor_right = 0.3
 anchor_bottom = 0.4
 offset_right = 40.0
 offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.8784314, 0.67058825, 0.54509807, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 42
 text = "Player2 name:"
 

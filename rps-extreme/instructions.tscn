@@ -30,55 +30,24 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_h8hbf")
 
-[node name="Back" type="Button" parent="." unique_id=1370110437]
-layout_mode = 1
-offset_right = 50.0
-offset_bottom = 31.0
-theme_override_font_sizes/font_size = 40
-text = "BACK"
-
-[node name="forward" type="Button" parent="." unique_id=877201420]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -8.0
-offset_top = -8.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_font_sizes/font_size = 40
-text = ">"
-
-[node name="backward" type="Button" parent="." unique_id=1868890567]
+[node name="page2" type="Control" parent="." unique_id=1006784132]
 visible = false
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -8.0
-offset_right = 8.0
-grow_vertical = 0
-theme_override_font_sizes/font_size = 40
-text = "<"
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="page1" type="Control" parent="." unique_id=1006784132]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Label" type="Label" parent="page1" unique_id=729583802]
+[node name="Label" type="Label" parent="page2" unique_id=729583802]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.022
 anchor_top = 0.085
 anchor_right = 0.32900003
 anchor_bottom = 0.81
-offset_left = 22.880001
-offset_top = 57.8
-offset_right = 305.6
-offset_bottom = 601.8
+theme_override_colors/font_color = Color(0.8784314, 0.67058825, 0.54509807, 1)
+theme_override_colors/font_shadow_color = Color(0.7764706, 0.53333336, 0.3882353, 1)
 theme_override_font_sizes/font_size = 32
 text = "FIRE:
 burns paper
@@ -93,17 +62,15 @@ turns earth to mud
 rust scissors
 breaks down rock"
 
-[node name="Label2" type="Label" parent="page1" unique_id=371601840]
+[node name="Label2" type="Label" parent="page2" unique_id=371601840]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.342
 anchor_top = 0.085
 anchor_right = 0.65
 anchor_bottom = 0.81
-offset_left = 355.68002
-offset_top = 57.8
-offset_right = 609.36
-offset_bottom = 601.8
+theme_override_colors/font_color = Color(0.8784314, 0.67058825, 0.54509807, 1)
+theme_override_colors/font_shadow_color = Color(0.7764706, 0.53333336, 0.3882353, 1)
 theme_override_font_sizes/font_size = 32
 text = "EARTH:
 dulls scissors
@@ -118,33 +85,106 @@ erodes rock
 blows out fire
 controls water"
 
-[node name="Label3" type="Label" parent="page1" unique_id=2127980990]
+[node name="Label3" type="Label" parent="page2" unique_id=2127980990]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.342
-anchor_top = 0.085
-anchor_right = 0.65
-anchor_bottom = 0.81
 offset_left = 692.32
 offset_top = 57.6
 offset_right = 899.0
 offset_bottom = 217.6
+theme_override_colors/font_color = Color(0.8784314, 0.67058825, 0.54509807, 1)
+theme_override_colors/font_shadow_color = Color(0.7764706, 0.53333336, 0.3882353, 1)
 theme_override_font_sizes/font_size = 32
 text = "ROCK:
 smothers fire
 crushes paper
 curshes earth"
 
-[node name="page2" type="Control" parent="." unique_id=1303685253]
+[node name="page3" type="Control" parent="." unique_id=1303685253]
 visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Graph" type="Sprite2D" parent="page2" unique_id=1750184467]
+[node name="Graph" type="Sprite2D" parent="page3" unique_id=1750184467]
 position = Vector2(510.00003, 317.00003)
 scale = Vector2(0.70105565, 0.69593257)
 texture = ExtResource("2_h8hbf")
+
+[node name="page1" type="Control" parent="." unique_id=1579840271]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Heading" type="Label" parent="page1" unique_id=132653803]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.174
+anchor_top = 0.147
+anchor_right = 0.174
+anchor_bottom = 0.156
+offset_right = 578.0
+offset_bottom = 69.0
+theme_override_colors/font_color = Color(0.8784314, 0.67058825, 0.54509807, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "HOW THE GAME WORKS"
+
+[node name="Label" type="Label" parent="page1" unique_id=180132788]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.031
+anchor_top = 0.326
+anchor_right = 0.969
+anchor_bottom = 0.871
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.8784314, 0.67058825, 0.54509807, 1)
+theme_override_colors/font_shadow_color = Color(0.7764706, 0.53333336, 0.3882353, 1)
+theme_override_font_sizes/font_size = 24
+text = "In default settings, players play 3 rounds and each play selects 3 cards let say player1 picks air,water and earth and player 2 picks fire,rock and scissors. After the selection, their cards will fight in the order of their selection i.e. first card of player1 will fight the first card of player2 and so on . In our example, player1 will win the first fight  and second fight since air blows out fire and water breaks down rock, player2 will win the third fight as earth dulls scissors. Thus, player1 will win the first round. Whoever wins the most rounds at the end of selected number of rounds will win the game in case of tie at the end of selected round, a tie breaker match will be played and whoever wins that match will win the game.
+Refer to next page to see the rules of the game."
+autowrap_mode = 3
+
+[node name="Back" type="Button" parent="." unique_id=1370110437]
+layout_mode = 1
+offset_right = 112.0
+offset_bottom = 63.0
+theme_override_font_sizes/font_size = 40
+text = "BACK"
+
+[node name="forward" type="Button" parent="." unique_id=877201420]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -31.0
+offset_top = -63.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 40
+text = ">"
+
+[node name="backward" type="Button" parent="." unique_id=1868890567]
+visible = false
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -63.0
+offset_right = 31.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 40
+text = "<"
 
 [connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="forward" to="." method="_on_forward_pressed"]

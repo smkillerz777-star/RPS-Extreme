@@ -12,3 +12,24 @@ var winner = "player1"
 var rounds = 1
 var card_selected = 1
 var again = false
+var description = "fire burns paper
+fire boils water
+fire melts scissors
+paper absorbs water
+paper covers earth
+paper blocks air
+water turns earth to mud
+water rust scissors
+water breaks down rock
+earth dulls scissors
+earth resists air
+earth buries fire
+scissors slices through air
+scissors cracks rock
+scissors cuts paper
+air erodes rock
+air blows out fire
+air controls water
+rock smothers fire
+rock crushes paper
+rock curshes earth"

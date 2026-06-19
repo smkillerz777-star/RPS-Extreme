@@ -10,14 +10,19 @@ var score1 = 0
 var score2 = 0
 var game_started = false
 var card_enabled = false
+var game_ended = false
 func _ready():
 	card_disable()
+	if(not global.again):
+		global.description = global.description.split("\n")
 	if(global.again):
 		game_start()
 func _process(delta: float) -> void:
 	global.time_past += delta
 	if((tween == null or not tween.is_valid()) and game_started):
 		card_enable()
+	if((tween == null or not tween.is_valid()) and game_ended):
+		get_tree().change_scene_to_file("res://game_over.tscn")
 	if(card_enabled and tween.is_valid() and game_started):
 		card_disable()
 	if(element_selected>=max_element_selected):
@@ -32,7 +37,7 @@ func _on_timer_timeout() -> void:
 		global.selected1 = selected
 		selected = []
 		selection_end(global.selected1)
-		label_animation(global.player2+" turn")
+		label_animation(global.player2+" turn",0.5)
 		selection_start()
 	else:
 		global.selected2 = selected
@@ -97,7 +102,6 @@ func selection_start():
 	$Label.visible = true
 
 func selection_end(selected_cards):
-	$Label.visible = false
 	for i in range(0,7):
 		if(selected_cards.find(i)==-1):
 			turn_back(get_child(i+4))
@@ -123,25 +127,24 @@ func turn_back(card):
 	tween.tween_property(card,"scale:x",1.0,0.15)
 	
 func mmatch():
-	print(global.selected1)
-	print(global.selected2)
 	for i in range(max_element_selected):
+		print(fight(global.selected1[i],global.selected2[i]))
 		if(fight(global.selected1[i],global.selected2[i])==global.selected1[i]):
+			print_description(global.selected1[i],global.selected2[i])
 			score1+=1
 		elif(fight(global.selected1[i],global.selected2[i])==global.selected2[i]):
+			print_description(global.selected2[i],global.selected1[i])
 			score2+=1
-	print(score1)
-	print(score2)
 	if(score1>score2):
-		label_animation(global.player1 + " won")
+		label_animation(global.player1 + " won",0.5)
 		global.score1 += 1
 	elif(score2>score1):
-		label_animation(global.player2 + " won")
+		label_animation(global.player2 + " won",0.5)
 		global.score2 += 1
 	else:
-		label_animation("tie")
+		label_animation("tie",0.5)
 	if(match_game<=max_match_game):
-		label_animation(global.player1 + " turn")
+		label_animation(global.player1 + " turn",0.5)
 		score1 = 0
 		score2 = 0
 		selection_start()
@@ -153,7 +156,7 @@ func mmatch():
 			global.winner = global.player2
 			game_over()
 		else:
-			label_animation(global.player1 + " turn")
+			label_animation(global.player1 + " turn",0.5)
 			score1 = 0
 			score2 = 0
 			selection_start()
@@ -190,7 +193,7 @@ func fight(element1,element2):
 	elif(element1==4):
 		if(element2==5 or element2==6 or element2==2):
 			return element1
-		elif(element2==1 or element2==3 or element2==4):
+		elif(element2==1 or element2==3 or element2==0):
 			return element2
 		else:
 			return null
@@ -209,17 +212,16 @@ func fight(element1,element2):
 		else:
 			return null
 	return null
-func label_animation(word):
+func label_animation(word,duration,size_font=150):
 	tween.tween_property($Label,"text",word,0.01)
-	$Label.visible = false
-	tween.tween_property($Label,"theme_override_font_sizes/font_size",150,0.35)
+	tween.tween_property($Label,"theme_override_font_sizes/font_size",size_font,0.35)
 	tween.tween_property($Label,"position",Vector2(80,250),0.35)
-	tween.tween_property($Label,"visible",true,0.15)
+	tween.tween_interval(duration)
 	tween.tween_property($Label,"theme_override_font_sizes/font_size",16,0.15)
-	tween.tween_property($Label,"position",Vector2(980,0),0.15)
+	tween.tween_property($Label,"position",Vector2(980,0),0.35)
 
 func game_over():
-	get_tree().change_scene_to_file("res://game_over.tscn")
+	game_ended = true
 func game_start():
 	game_started = true
 	$start.visible = false
@@ -227,10 +229,10 @@ func game_start():
 	$input2.visible = false
 	$player1.visible = false
 	$player2.visible = false
-	for i in range(4,11):
+	for i in range(3,11):
 		get_child(i).visible = true
 	tween = create_tween()
-	label_animation(global.player1+" turn")
+	label_animation(global.player1+" turn",0.5)
 	selection_start()
 
 func _on_start_pressed() -> void:
@@ -249,3 +251,25 @@ func  card_disable():
 	for i in range(4,11):
 		get_child(i).get_child(1).disabled = true
 	card_enabled = false
+
+func print_description(winner,loser):
+	var offset = 0
+	if(loser<winner):
+		if(winner==3 or winner==4):
+			offset = 2
+		elif(winner==5):
+			if(loser==0):
+				offset = 1
+			else:
+				offset = 2
+		else:
+			if(loser==3):
+				offset = 2
+			else:
+				offset = loser
+	else:
+		if((loser-winner)==4):
+			offset = 2
+		else:
+			offset = (loser-winner-1)
+	label_animation(global.description[(winner)*3+offset],2,70)
