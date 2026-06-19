@@ -1,8 +1,8 @@
 extends Control
 var element_selected = 0
-var max_element_selected = 1
+var max_element_selected = 3
 var match_game = 1
-var max_match_game = 1
+var max_match_game = 3
 var turn = 1
 var selected = []
 var tween
