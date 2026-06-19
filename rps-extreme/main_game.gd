@@ -8,15 +8,20 @@ var selected = []
 var tween
 var score1 = 0
 var score2 = 0
+var game_started = false
+var card_enabled = false
 func _ready():
+	card_disable()
 	if(global.again):
 		game_start()
 func _process(delta: float) -> void:
 	global.time_past += delta
-	$Time_left.text = "Timer: " + str($Timer.time_left).substr(0,str($Timer.time_left).find(".")+2)
+	if((tween == null or not tween.is_valid()) and game_started):
+		card_enable()
+	if(card_enabled and tween.is_valid() and game_started):
+		card_disable()
 	if(element_selected>=max_element_selected):
-		$Timer.stop()
-		$Timer.timeout.emit()
+		_on_timer_timeout()
 		element_selected=0
 	max_element_selected = global.card_selected
 	max_match_game = global.rounds
@@ -29,7 +34,6 @@ func _on_timer_timeout() -> void:
 		selection_end(global.selected1)
 		label_animation(global.player2+" turn")
 		selection_start()
-		$Timer.start()
 	else:
 		global.selected2 = selected
 		selected = []
@@ -90,12 +94,9 @@ func selection_start():
 		tween.tween_property(get_child(i),"position",pos,0.15)
 		tween.tween_property(get_child(i),"rotation",0,0.15)
 		turn_front(get_child(i))
-	$Time_left.visible = true
 	$Label.visible = true
-	$Timer.start()
 
 func selection_end(selected_cards):
-	$Time_left.visible = false
 	$Label.visible = false
 	for i in range(0,7):
 		if(selected_cards.find(i)==-1):
@@ -220,12 +221,12 @@ func label_animation(word):
 func game_over():
 	get_tree().change_scene_to_file("res://game_over.tscn")
 func game_start():
+	game_started = true
 	$start.visible = false
 	$input1.visible = false
 	$input2.visible = false
 	$player1.visible = false
 	$player2.visible = false
-	$Time_left.visible = true
 	for i in range(4,11):
 		get_child(i).visible = true
 	tween = create_tween()
@@ -238,3 +239,13 @@ func _on_start_pressed() -> void:
 	global.player1 = $input1.text
 	global.player2 = $input2.text
 	game_start()
+
+func  card_enable():
+	for i in range(4,11):
+		get_child(i).get_child(1).disabled = false
+	card_enabled = true
+
+func  card_disable():
+	for i in range(4,11):
+		get_child(i).get_child(1).disabled = true
+	card_enabled = false
