@@ -226,6 +226,36 @@ offset_left = -95.0
 theme_override_font_sizes/font_size = 40
 text = "EXIT"
 
+[node name="Label2" type="Label" parent="." unique_id=1812311553]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -379.0
+offset_right = -279.0
+offset_bottom = 23.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0.8784314, 0.67058825, 0.54509807, 1)
+theme_override_colors/font_shadow_color = Color(0.7764706, 0.53333336, 0.3882353, 1)
+theme_override_font_sizes/font_size = 16
+text = "Score: 0:0"
+
+[node name="Label3" type="Label" parent="." unique_id=711932285]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -647.0
+offset_right = -547.0
+offset_bottom = 23.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0.8784314, 0.67058825, 0.54509807, 1)
+theme_override_colors/font_shadow_color = Color(0.7764706, 0.53333336, 0.3882353, 1)
+theme_override_font_sizes/font_size = 16
+text = "Round: 1"
+
 [connection signal="pressed" from="fire/fire2" to="." method="_on_fire_pressed"]
 [connection signal="pressed" from="paper/paper" to="." method="_on_paper_pressed"]
 [connection signal="pressed" from="water/water" to="." method="_on_water_pressed"]

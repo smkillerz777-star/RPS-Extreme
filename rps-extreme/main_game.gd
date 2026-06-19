@@ -43,6 +43,7 @@ func _on_timer_timeout() -> void:
 		selected = []
 		turn = 1
 		match_game+=1
+		$Label3.text = "Round: " + str(match_game)
 		selection_end(global.selected2)
 		mmatch()
 		
@@ -127,7 +128,6 @@ func turn_back(card):
 	
 func mmatch():
 	for i in range(max_element_selected):
-		print(fight(global.selected1[i],global.selected2[i]))
 		if(fight(global.selected1[i],global.selected2[i])==global.selected1[i]):
 			print_description(global.selected1[i],global.selected2[i])
 			score1+=1
@@ -142,6 +142,7 @@ func mmatch():
 		global.score2 += 1
 	else:
 		label_animation("tie",0.5)
+	$Label2.text = "Score: " + str(global.score1) + ":" + str(global.score2)
 	if(match_game<=max_match_game):
 		label_animation(global.player1 + " turn",0.5)
 		score1 = 0
@@ -228,6 +229,8 @@ func game_start():
 	$input2.visible = false
 	$player1.visible = false
 	$player2.visible = false
+	$Label2.visible = true
+	$Label3.visible = true
 	for i in range(3,11):
 		get_child(i).visible = true
 	tween = create_tween()
@@ -247,7 +250,6 @@ func  card_enable():
 	card_enabled = true
 
 func  card_disable():
-	print("hi")
 	for i in range(4,11):
 		get_child(i).get_child(1).disabled = true
 	card_enabled = false
@@ -272,7 +274,7 @@ func print_description(winner,loser):
 			offset = 2
 		else:
 			offset = (loser-winner-1)
-	label_animation(global.description[(winner)*3+offset],2,70)
+	label_animation(global.description[(winner)*3+offset],1,70)
 
 
 func _on_exit_pressed() -> void:
