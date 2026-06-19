@@ -9,3 +9,7 @@ func _on_button_pressed() -> void:
     global.time_past = 0
     global.again = true
     get_tree().change_scene_to_file("res://main_game.tscn")
+
+
+func _on_button_2_pressed() -> void:
+    get_tree().change_scene_to_file("res://main_menu.tscn")

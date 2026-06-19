@@ -33,3 +33,5 @@ air controls water
 rock smothers fire
 rock crushes paper
 rock curshes earth"
+func _ready() -> void:
+    global.description = global.description.split("\n")

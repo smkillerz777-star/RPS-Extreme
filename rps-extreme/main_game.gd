@@ -11,19 +11,18 @@ var score2 = 0
 var game_started = false
 var card_enabled = false
 var game_ended = false
+var game_paused = false
 func _ready():
 	card_disable()
-	if(not global.again):
-		global.description = global.description.split("\n")
 	if(global.again):
 		game_start()
 func _process(delta: float) -> void:
 	global.time_past += delta
-	if((tween == null or not tween.is_valid()) and game_started):
+	if((tween == null or not tween.is_valid()) and game_started and not game_paused):
 		card_enable()
 	if((tween == null or not tween.is_valid()) and game_ended):
 		get_tree().change_scene_to_file("res://game_over.tscn")
-	if(card_enabled and tween.is_valid() and game_started):
+	if(card_enabled and tween != null and tween.is_valid() and game_started):
 		card_disable()
 	if(element_selected>=max_element_selected):
 		_on_timer_timeout()
@@ -113,18 +112,18 @@ func selection_end(selected_cards):
 func turn_front(card):
 	if(tween == null or not tween.is_valid()):
 		tween = create_tween()
-	tween.tween_property(card,"scale:x",0.0,0.15)
+	tween.tween_property(card,"scale:x",0.0,0.1)
 	tween.tween_property(card.get_child(0).get_node("back"),"visible",false,0.01)
 	tween.tween_property(card.get_child(0).get_node(NodePath(card.name)),"visible",true,0.01)
-	tween.tween_property(card,"scale:x",1.0,0.15)
+	tween.tween_property(card,"scale:x",1.0,0.1)
 	
 func turn_back(card):
 	if(tween == null or not tween.is_valid()):
 		tween = create_tween()
-	tween.tween_property(card,"scale:x",0.0,0.15)
+	tween.tween_property(card,"scale:x",0.0,0.1)
 	tween.tween_property(card.get_child(0).get_node("back"),"visible",true,0.01)
 	tween.tween_property(card.get_child(0).get_node(NodePath(card.name)),"visible",false,0.01)
-	tween.tween_property(card,"scale:x",1.0,0.15)
+	tween.tween_property(card,"scale:x",1.0,0.1)
 	
 func mmatch():
 	for i in range(max_element_selected):
@@ -248,6 +247,7 @@ func  card_enable():
 	card_enabled = true
 
 func  card_disable():
+	print("hi")
 	for i in range(4,11):
 		get_child(i).get_child(1).disabled = true
 	card_enabled = false
@@ -273,3 +273,33 @@ func print_description(winner,loser):
 		else:
 			offset = (loser-winner-1)
 	label_animation(global.description[(winner)*3+offset],2,70)
+
+
+func _on_exit_pressed() -> void:
+	get_tree().change_scene_to_file("res://main_menu.tscn")
+
+
+func _on_back_pressed() -> void:
+	var tween2 = create_tween()
+	if(tween!=null and tween.is_valid()):
+		tween.pause()
+	$resume.visible = true
+	$exit.visible = true
+	$back.visible = false
+	card_disable()
+	tween2.tween_property($resume,"position:x",0,0.3)
+	tween2.tween_property($exit,"position:x",0,0.3)
+	game_paused = true
+
+
+func _on_resume_pressed() -> void:
+	var tween2 = create_tween()
+	if(tween!=null and tween.is_valid()):
+		tween.play()
+	card_enable()
+	$back.visible = true
+	tween2.tween_property($resume,"position:x",-183,0.3)
+	tween2.tween_property($exit,"position:x",-95,0.3)
+	tween2.tween_property($exit,"visible",false,0.01)
+	tween2.tween_property($resume,"visible",false,0.01)
+	game_paused = false
