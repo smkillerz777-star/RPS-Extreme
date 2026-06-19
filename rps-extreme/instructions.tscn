@@ -3,6 +3,15 @@
 [ext_resource type="Script" uid="uid://ybwjvagn5py7" path="res://instructions.gd" id="1_7ls63"]
 [ext_resource type="Texture2D" uid="uid://iwprktscrbfg" path="res://graph.png" id="2_h8hbf"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h8hbf"]
+bg_color = Color(0.6901961, 0.42352942, 0.28627452, 1)
+border_width_left = 32
+border_width_top = 32
+border_width_right = 32
+border_width_bottom = 32
+border_color = Color(0.45490196, 0.23921569, 0.16862746, 1)
+border_blend = true
+
 [node name="Instructions" type="Control" unique_id=1292410311]
 layout_mode = 3
 anchors_preset = 15
@@ -12,14 +21,14 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7ls63")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1027380291]
+[node name="Panel" type="Panel" parent="." unique_id=1032742952]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.45490196, 0.23921569, 0.16862746, 1)
+theme_override_styles/panel = SubResource("StyleBoxFlat_h8hbf")
 
 [node name="Back" type="Button" parent="." unique_id=1370110437]
 layout_mode = 1

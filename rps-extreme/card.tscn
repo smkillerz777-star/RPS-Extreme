@@ -93,7 +93,7 @@ offset_right = 385.0
 offset_bottom = 251.0
 theme_override_colors/font_color = Color(0.8784314, 0.67058825, 0.54509807, 1)
 theme_override_font_sizes/font_size = 84
-text = "RPG"
+text = "RPS"
 
 [node name="Label2" type="Label" parent="back" unique_id=748686281]
 offset_left = 13.0

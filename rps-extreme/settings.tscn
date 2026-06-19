@@ -29,7 +29,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_jwo76")
 
-[node name="LineEdit" type="LineEdit" parent="." unique_id=1028867089]
+[node name="input1" type="LineEdit" parent="." unique_id=1028867089]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.4
@@ -53,7 +53,7 @@ offset_bottom = 23.0
 theme_override_font_sizes/font_size = 42
 text = "Rounds :"
 
-[node name="LineEdit2" type="LineEdit" parent="." unique_id=1720435450]
+[node name="input2" type="LineEdit" parent="." unique_id=1720435450]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5

@@ -3,6 +3,15 @@
 [ext_resource type="Script" uid="uid://bgwnuwrrvxb5r" path="res://main_game.gd" id="1_1oj5k"]
 [ext_resource type="PackedScene" uid="uid://bdqimnhsve36w" path="res://card.tscn" id="2_yx7mw"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yx7mw"]
+bg_color = Color(0.6901961, 0.42352942, 0.28627452, 1)
+border_width_left = 32
+border_width_top = 32
+border_width_right = 32
+border_width_bottom = 32
+border_color = Color(0.45490196, 0.23921569, 0.16862746, 1)
+border_blend = true
+
 [node name="main_game" type="Control" unique_id=721060528]
 layout_mode = 3
 anchors_preset = 15
@@ -12,28 +21,26 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_1oj5k")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1070500112]
+[node name="Panel" type="Panel" parent="." unique_id=1351053319]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 1.9599991
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.45490196, 0.23921569, 0.16862746, 1)
+theme_override_styles/panel = SubResource("StyleBoxFlat_yx7mw")
 
 [node name="Timer" type="Timer" parent="." unique_id=1912111264]
 wait_time = 15.0
 one_shot = true
-autostart = true
 
 [node name="Time_left" type="Label" parent="." unique_id=18276532]
+visible = false
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 
 [node name="Label" type="Label" parent="." unique_id=1669479507]
-visible = false
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -45,6 +52,7 @@ theme_override_font_sizes/font_size = 16
 text = "PLayer1 turn"
 
 [node name="fire" type="Node2D" parent="." unique_id=973686295]
+visible = false
 position = Vector2(615, 815)
 rotation = -0.34906584
 
@@ -58,6 +66,7 @@ text = "
 "
 
 [node name="paper" type="Node2D" parent="." unique_id=1794135952]
+visible = false
 position = Vector2(615, 815)
 rotation = -0.2617994
 
@@ -69,6 +78,7 @@ offset_left = -190.0
 offset_top = -315.0
 
 [node name="water" type="Node2D" parent="." unique_id=1034746933]
+visible = false
 position = Vector2(615, 815)
 rotation = -0.17453292
 
@@ -80,6 +90,7 @@ offset_left = -190.0
 offset_top = -315.0
 
 [node name="earth" type="Node2D" parent="." unique_id=1562308147]
+visible = false
 position = Vector2(615, 815)
 rotation = -0.08726646
 
@@ -93,6 +104,7 @@ text = "
 "
 
 [node name="scissors" type="Node2D" parent="." unique_id=1767417697]
+visible = false
 position = Vector2(615, 815)
 
 [node name="card" parent="scissors" unique_id=151280979 instance=ExtResource("2_yx7mw")]
@@ -105,6 +117,7 @@ text = "
 "
 
 [node name="air" type="Node2D" parent="." unique_id=287175301]
+visible = false
 position = Vector2(615, 815)
 rotation = 0.08726646
 
@@ -116,6 +129,7 @@ offset_left = -190.0
 offset_top = -315.0
 
 [node name="rock" type="Node2D" parent="." unique_id=212986369]
+visible = false
 position = Vector2(615, 815)
 rotation = 0.17453292
 
@@ -126,6 +140,68 @@ position = Vector2(-190, -315)
 offset_left = -190.0
 offset_top = -315.0
 
+[node name="player1" type="Label" parent="." unique_id=1794818803]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.25
+anchor_right = 0.3
+anchor_bottom = 0.25
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 42
+text = "Player1 name:"
+
+[node name="input1" type="LineEdit" parent="." unique_id=404503558]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.25
+anchor_right = 0.5
+anchor_bottom = 0.25
+offset_right = 168.0
+offset_bottom = 66.0
+theme_override_font_sizes/font_size = 42
+placeholder_text = "name"
+
+[node name="player2" type="Label" parent="." unique_id=1254290456]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.4
+anchor_right = 0.3
+anchor_bottom = 0.4
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 42
+text = "Player2 name:"
+
+[node name="input2" type="LineEdit" parent="." unique_id=1832176645]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.4
+anchor_right = 0.5
+anchor_bottom = 0.4
+offset_right = 168.0
+offset_bottom = 66.0
+theme_override_font_sizes/font_size = 42
+placeholder_text = "name"
+
+[node name="start" type="Button" parent="." unique_id=2124348283]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -127.0
+offset_top = -63.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 40
+text = "START"
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="fire/fire2" to="." method="_on_fire_pressed"]
 [connection signal="pressed" from="paper/paper" to="." method="_on_paper_pressed"]
@@ -134,3 +210,4 @@ offset_top = -315.0
 [connection signal="pressed" from="scissors/scissors" to="." method="_on_scissors_pressed"]
 [connection signal="pressed" from="air/air" to="." method="_on_air_pressed"]
 [connection signal="pressed" from="rock/rock" to="." method="_on_rock_pressed"]
+[connection signal="pressed" from="start" to="." method="_on_start_pressed"]

@@ -9,9 +9,8 @@ var tween
 var score1 = 0
 var score2 = 0
 func _ready():
-	tween = create_tween()
-	label_animation(global.player1+" turn")
-	selection_start()
+	if(global.again):
+		game_start()
 func _process(delta: float) -> void:
 	global.time_past += delta
 	$Time_left.text = "Timer: " + str($Timer.time_left).substr(0,str($Timer.time_left).find(".")+2)
@@ -19,6 +18,8 @@ func _process(delta: float) -> void:
 		$Timer.stop()
 		$Timer.timeout.emit()
 		element_selected=0
+	max_element_selected = global.card_selected
+	max_match_game = global.rounds
 
 func _on_timer_timeout() -> void:
 	if(turn==1):
@@ -100,6 +101,8 @@ func selection_end(selected_cards):
 		if(selected_cards.find(i)==-1):
 			turn_back(get_child(i+4))
 	for i in range(4,11):
+		var angle = (i-8)*5/180.0*PI
+		tween.tween_property(get_child(i),"rotation",angle,0.15)
 		tween.tween_property(get_child(i),"position",Vector2(615,815),0.15)
 
 func turn_front(card):
@@ -216,3 +219,22 @@ func label_animation(word):
 
 func game_over():
 	get_tree().change_scene_to_file("res://game_over.tscn")
+func game_start():
+	$start.visible = false
+	$input1.visible = false
+	$input2.visible = false
+	$player1.visible = false
+	$player2.visible = false
+	$Time_left.visible = true
+	for i in range(4,11):
+		get_child(i).visible = true
+	tween = create_tween()
+	label_animation(global.player1+" turn")
+	selection_start()
+
+func _on_start_pressed() -> void:
+	if($input1.text=="" or $input2.text==""):
+		return
+	global.player1 = $input1.text
+	global.player2 = $input2.text
+	game_start()
