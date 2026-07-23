@@ -16,10 +16,13 @@ The game is highly inspired by the video: https://youtu.be/r2whuz6tkb0?si=QFepeY
 
 
 https://github.com/user-attachments/assets/b893bfcd-7a4a-41f1-81fb-c5aa2cd7d90f
-
+*the above video is at 3.4x speed to fit git hub upload size limit
 # Tech Stack
 Godot 4.6.1: used for making most of the game <br>
 V. S. Code: used as the code editor <br>
 gdscript: main programming language of the game <br>
 Nano banana 2: used for making the logos in the card <br>
 gimp: used for editing the logos so that they fit the game perfectly <br>
+
+# Demo
+a demo of the game is published at itch.io at https://swastik-gupta.itch.io/rps-extreme
