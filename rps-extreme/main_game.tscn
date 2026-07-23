@@ -2,15 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bgwnuwrrvxb5r" path="res://main_game.gd" id="1_1oj5k"]
 [ext_resource type="PackedScene" uid="uid://bdqimnhsve36w" path="res://card.tscn" id="2_yx7mw"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yx7mw"]
-bg_color = Color(0.6901961, 0.42352942, 0.28627452, 1)
-border_width_left = 32
-border_width_top = 32
-border_width_right = 32
-border_width_bottom = 32
-border_color = Color(0.45490196, 0.23921569, 0.16862746, 1)
-border_blend = true
+[ext_resource type="Texture2D" uid="uid://c6nhn7yx53ogh" path="res://main_bg.jpeg" id="3_ykeeq"]
 
 [node name="main_game" type="Control" unique_id=721060528]
 layout_mode = 3
@@ -21,14 +13,10 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_1oj5k")
 
-[node name="Panel" type="Panel" parent="." unique_id=1351053319]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_yx7mw")
+[node name="MainBg" type="Sprite2D" parent="." unique_id=561546978]
+position = Vector2(607.25, 364.5)
+scale = Vector2(1.0800177, 0.46091312)
+texture = ExtResource("3_ykeeq")
 
 [node name="player1" type="Label" parent="." unique_id=1794818803]
 layout_mode = 1

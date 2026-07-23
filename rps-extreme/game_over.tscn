@@ -1,15 +1,7 @@
 [gd_scene format=3 uid="uid://bcwlxb62k5o8g"]
 
 [ext_resource type="Script" uid="uid://dqholqfmm52jo" path="res://game_over.gd" id="1_y26ei"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xapjj"]
-bg_color = Color(0.6901961, 0.42352942, 0.28627452, 1)
-border_width_left = 32
-border_width_top = 32
-border_width_right = 32
-border_width_bottom = 32
-border_color = Color(0.45490196, 0.23921569, 0.16862746, 1)
-border_blend = true
+[ext_resource type="Texture2D" uid="uid://c6nhn7yx53ogh" path="res://main_bg.jpeg" id="2_yxx3c"]
 
 [node name="game_over" type="Control" unique_id=585083125]
 layout_mode = 3
@@ -20,14 +12,10 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_y26ei")
 
-[node name="Panel" type="Panel" parent="." unique_id=1179638389]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_xapjj")
+[node name="MainBg" type="Sprite2D" parent="." unique_id=355666079]
+position = Vector2(559.75, 358.75)
+scale = Vector2(0.98364276, 0.445591)
+texture = ExtResource("2_yxx3c")
 
 [node name="Label" type="Label" parent="." unique_id=1910377374]
 layout_mode = 1

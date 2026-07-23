@@ -2,15 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bkrt1qt7git6" path="res://main_menu.gd" id="1_06t4h"]
 [ext_resource type="PackedScene" uid="uid://bdqimnhsve36w" path="res://card.tscn" id="2_7vrkn"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7vrkn"]
-bg_color = Color(0.2627451, 0.3882353, 0.49411765, 1)
-border_width_left = 32
-border_width_top = 32
-border_width_right = 32
-border_width_bottom = 32
-border_color = Color(0.19607843, 0.11764706, 0.28235295, 1)
-border_blend = true
+[ext_resource type="Texture2D" uid="uid://c6nhn7yx53ogh" path="res://main_bg.jpeg" id="3_fu7sn"]
 
 [node name="main_menu" type="Control" unique_id=407472160]
 layout_mode = 3
@@ -21,14 +13,10 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_06t4h")
 
-[node name="Panel" type="Panel" parent="." unique_id=1155414104]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7vrkn")
+[node name="MainBg" type="Sprite2D" parent="." unique_id=137237811]
+position = Vector2(559.75, 358.75)
+scale = Vector2(0.98364276, 0.445591)
+texture = ExtResource("3_fu7sn")
 
 [node name="Play_Button" type="Button" parent="." unique_id=987525538]
 layout_mode = 1
@@ -75,8 +63,8 @@ offset_left = -49.0
 offset_right = 49.0
 offset_bottom = 23.0
 grow_horizontal = 2
-theme_override_colors/font_color = Color(0.8784314, 0.67058825, 0.54509807, 1)
-theme_override_colors/font_shadow_color = Color(0.7764706, 0.53333336, 0.3882353, 1)
+theme_override_colors/font_color = Color(0.5895997, 0.38265383, 0.25210044, 1)
+theme_override_colors/font_shadow_color = Color(0.22648236, 0.131773, 0.07382872, 1)
 text = "RPS:Extreme"
 
 [node name="Setting_Button" type="Button" parent="." unique_id=346230173]
