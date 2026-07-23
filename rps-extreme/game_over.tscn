@@ -12,10 +12,15 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_y26ei")
 
-[node name="MainBg" type="Sprite2D" parent="." unique_id=355666079]
-position = Vector2(559.75, 358.75)
-scale = Vector2(0.98364276, 0.445591)
+[node name="Background" type="TextureRect" parent="." unique_id=190073430]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("2_yxx3c")
+expand_mode = 1
 
 [node name="Label" type="Label" parent="." unique_id=1910377374]
 layout_mode = 1

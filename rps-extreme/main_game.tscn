@@ -13,10 +13,15 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_1oj5k")
 
-[node name="MainBg" type="Sprite2D" parent="." unique_id=561546978]
-position = Vector2(607.25, 364.5)
-scale = Vector2(1.0800177, 0.46091312)
+[node name="Background" type="TextureRect" parent="." unique_id=226552420]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("3_ykeeq")
+expand_mode = 1
 
 [node name="player1" type="Label" parent="." unique_id=1794818803]
 layout_mode = 1

@@ -23,6 +23,7 @@ global="*uid://smp4kijyhw36"
 
 window/size/viewport_width=1080
 window/size/viewport_height=720
+window/dpi/allow_hidpi=false
 
 [editor_plugins]
 
