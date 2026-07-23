@@ -13,11 +13,6 @@ The game is highly inspired by the video: https://youtu.be/r2whuz6tkb0?si=QFepeY
 <img width="1080" height="720" alt="Screenshot 2026-07-23 165827" src="https://github.com/user-attachments/assets/00b92e92-0da9-400d-add3-bc22bad99741" />
 <img width="1080" height="720" alt="Screenshot 2026-07-23 170001" src="https://github.com/user-attachments/assets/6b82281c-a8cb-4011-a4ac-22fe4e24733a" />
 
-# Gameplay Video
-
-
-https://github.com/user-attachments/assets/b893bfcd-7a4a-41f1-81fb-c5aa2cd7d90f
-*the above video is at 3.4x speed to fit git hub upload size limit
 # Tech Stack
 Godot 4.6.1: used for making most of the game <br>
 V. S. Code: used as the code editor <br>
