@@ -6,12 +6,13 @@ In default settings, players play 3 rounds and each play selects 3 cards let say
 # Motivation 
 The game is highly inspired by the video: https://youtu.be/r2whuz6tkb0?si=QFepeY7rnijyg28Z . This video explains why rps is a good game and how can we make it even better. I have implemented some of the ideas of the video like increasing rounds, increasing gestures,allowing combos and two paradox.
 # Screenshots
-<img width="1017" height="670" alt="Screenshot 2026-06-19 183640" src="https://github.com/user-attachments/assets/fff29113-11cb-4dbd-9dc6-db11dcc61fb8" />
-<img width="1020" height="677" alt="Screenshot 2026-06-19 183609" src="https://github.com/user-attachments/assets/ff0506f3-4620-491d-a776-0d8a0989be57" />
-<img width="1017" height="677" alt="Screenshot 2026-06-19 183518" src="https://github.com/user-attachments/assets/3c7027e1-3cac-4994-b9e8-d52f1c7afa39" />
-<img width="1016" height="673" alt="Screenshot 2026-06-19 183530" src="https://github.com/user-attachments/assets/b118fdcd-5c6e-4799-b111-c2aa916ebf00" />
-<img width="1028" height="677" alt="Screenshot 2026-06-19 183556" src="https://github.com/user-attachments/assets/6400870f-4099-4870-91e2-0e04d9e0d7ef" />
-<img width="1012" height="668" alt="Screenshot 2026-06-19 183754" src="https://github.com/user-attachments/assets/7eacb07a-2b3f-4a2a-adb0-01c76716a93e" />
+<img width="1080" height="720" alt="Screenshot 2026-07-23 165720" src="https://github.com/user-attachments/assets/78e81199-0262-4e6c-8de6-1a49b767fcb1" />
+<img width="1080" height="720" alt="Screenshot 2026-07-23 165733" src="https://github.com/user-attachments/assets/5814a82d-e87d-4ab8-aab7-35ceddad1c8b" />
+<img width="1080" height="720" alt="Screenshot 2026-07-23 165745" src="https://github.com/user-attachments/assets/d077182e-88b3-4f6b-aecf-257e2d0215b9" />
+<img width="1080" height="720" alt="Screenshot 2026-07-23 165758" src="https://github.com/user-attachments/assets/c63edc45-a923-4a1f-b7ce-0498a898ca82" />
+<img width="1080" height="720" alt="Screenshot 2026-07-23 165827" src="https://github.com/user-attachments/assets/00b92e92-0da9-400d-add3-bc22bad99741" />
+<img width="1080" height="720" alt="Screenshot 2026-07-23 170001" src="https://github.com/user-attachments/assets/6b82281c-a8cb-4011-a4ac-22fe4e24733a" />
+
 # Gameplay Video
 
 
