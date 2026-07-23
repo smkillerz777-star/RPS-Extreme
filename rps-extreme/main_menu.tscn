@@ -4,12 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://bdqimnhsve36w" path="res://card.tscn" id="2_7vrkn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7vrkn"]
-bg_color = Color(0.6901961, 0.42352942, 0.28627452, 1)
+bg_color = Color(0.2627451, 0.3882353, 0.49411765, 1)
 border_width_left = 32
 border_width_top = 32
 border_width_right = 32
 border_width_bottom = 32
-border_color = Color(0.45490196, 0.23921569, 0.16862746, 1)
+border_color = Color(0.19607843, 0.11764706, 0.28235295, 1)
 border_blend = true
 
 [node name="main_menu" type="Control" unique_id=407472160]

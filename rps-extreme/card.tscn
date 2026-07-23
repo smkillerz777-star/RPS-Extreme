@@ -1,23 +1,23 @@
 [gd_scene format=3 uid="uid://bdqimnhsve36w"]
 
 [ext_resource type="Script" uid="uid://bokn61fx8mqw7" path="res://card.gd" id="1_rjlel"]
-[ext_resource type="Texture2D" uid="uid://cw52cnkgogmos" path="res://stone.png" id="2_q5obu"]
-[ext_resource type="Texture2D" uid="uid://cu4pbwy7o82q6" path="res://scissors.png" id="2_rjlel"]
-[ext_resource type="Texture2D" uid="uid://b6y7noep1lr6i" path="res://paper.png" id="3_q5obu"]
-[ext_resource type="Texture2D" uid="uid://ccsiek4hbcplg" path="res://air.png" id="5_fpac0"]
-[ext_resource type="Texture2D" uid="uid://ckmvp8afmf8op" path="res://fire.png" id="6_1i5pp"]
-[ext_resource type="Texture2D" uid="uid://dhb7re5yfqplb" path="res://water.png" id="7_pjytt"]
-[ext_resource type="Texture2D" uid="uid://hbg21kmy67xe" path="res://earth.png" id="8_b4rk6"]
+[ext_resource type="Texture2D" uid="uid://dambdbfdv301c" path="res://scissors.jpg" id="2_6lcat"]
+[ext_resource type="Texture2D" uid="uid://bj0w0koc6ye7k" path="res://paper.jpg" id="3_6lcat"]
+[ext_resource type="Texture2D" uid="uid://bpuj1p5yhfevc" path="res://wind.jpg" id="5_6lcat"]
+[ext_resource type="Texture2D" uid="uid://byax2vlrybqbn" path="res://fire.jpg" id="6_6lcat"]
+[ext_resource type="Texture2D" uid="uid://dxwqctcdtwxrs" path="res://water.jpg" id="7_6lcat"]
+[ext_resource type="Texture2D" uid="uid://b64pyq6s3xqg4" path="res://earth.jpg" id="8_ut1v0"]
+[ext_resource type="Texture2D" uid="uid://ds0obj3i7mxok" path="res://background.jpg" id="9_6lcat"]
+[ext_resource type="Texture2D" uid="uid://b37n4gu0gr1hx" path="res://stone.jpg" id="9_ut1v0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b4rk6"]
-bg_color = Color(0.6901961, 0.42352942, 0.28627452, 1)
+bg_color = Color(0.2627451, 0.3882353, 0.49411765, 1)
 border_width_left = 6
 border_width_top = 6
 border_width_right = 6
 border_width_bottom = 6
-border_color = Color(0.7764706, 0.53333336, 0.3882353, 1)
+border_color = Color(0.19607843, 0.11764706, 0.28235295, 1)
 corner_detail = 1
-shadow_color = Color(0, 0, 0, 1)
 shadow_size = 10
 
 [node name="card" type="Node2D" unique_id=1750312630]
@@ -31,75 +31,62 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_b4rk6")
 [node name="scissors" type="Node2D" parent="." unique_id=929358708]
 visible = false
 
-[node name="Scissors" type="Sprite2D" parent="scissors" unique_id=1628510682]
-position = Vector2(101, 159.99998)
-scale = Vector2(0.31924716, 0.35156247)
-texture = ExtResource("2_rjlel")
+[node name="Scissors" type="Sprite2D" parent="scissors" unique_id=231697730]
+position = Vector2(94.500015, 158.5)
+scale = Vector2(0.17314817, 0.20484294)
+texture = ExtResource("2_6lcat")
 
 [node name="paper" type="Node2D" parent="." unique_id=1061040966]
 visible = false
 
-[node name="Paper" type="Sprite2D" parent="paper" unique_id=1313348182]
-position = Vector2(103.99999, 172.5)
-scale = Vector2(0.13352272, 0.23046875)
-texture = ExtResource("3_q5obu")
+[node name="Paper" type="Sprite2D" parent="paper" unique_id=1149660019]
+position = Vector2(95.49999, 159)
+scale = Vector2(0.17685184, 0.20549737)
+texture = ExtResource("3_6lcat")
 
 [node name="rock" type="Node2D" parent="." unique_id=334392551]
 visible = false
 
-[node name="Stone" type="Sprite2D" parent="rock" unique_id=2056718883]
-position = Vector2(90, 152)
-scale = Vector2(0.104403414, 0.20507814)
-texture = ExtResource("2_q5obu")
+[node name="Stone" type="Sprite2D" parent="rock" unique_id=1468589045]
+position = Vector2(93.75, 157)
+scale = Vector2(0.17268518, 0.2041885)
+texture = ExtResource("9_ut1v0")
 
 [node name="air" type="Node2D" parent="." unique_id=1582463533]
 visible = false
 
-[node name="Air" type="Sprite2D" parent="air" unique_id=1651154679]
-position = Vector2(98, 150)
-scale = Vector2(0.12535512, 0.22851564)
-texture = ExtResource("5_fpac0")
+[node name="Wind" type="Sprite2D" parent="air" unique_id=652918302]
+position = Vector2(95.5, 155)
+scale = Vector2(0.17314816, 0.2054974)
+texture = ExtResource("5_6lcat")
 
 [node name="fire" type="Node2D" parent="." unique_id=639497926]
 visible = false
 
 [node name="Fire" type="Sprite2D" parent="fire" unique_id=1705578510]
-position = Vector2(92, 158)
-scale = Vector2(0.2848011, 0.38867188)
-texture = ExtResource("6_1i5pp")
+position = Vector2(94.1037, 158.48633)
+scale = Vector2(0.18314128, 0.20875174)
+texture = ExtResource("6_6lcat")
 
 [node name="water" type="Node2D" parent="." unique_id=282808017]
 visible = false
 
 [node name="Water" type="Sprite2D" parent="water" unique_id=1378908282]
-position = Vector2(98, 150)
-scale = Vector2(0.14382103, 0.34570313)
-texture = ExtResource("7_pjytt")
+position = Vector2(93.00001, 157)
+scale = Vector2(0.17222224, 0.20942408)
+texture = ExtResource("7_6lcat")
 
 [node name="earth" type="Node2D" parent="." unique_id=1480298302]
 visible = false
 
-[node name="Earth" type="Sprite2D" parent="earth" unique_id=1432479629]
-position = Vector2(98, 150)
-scale = Vector2(0.23650567, 0.24544267)
-texture = ExtResource("8_b4rk6")
+[node name="Earth" type="Sprite2D" parent="earth" unique_id=560329188]
+position = Vector2(96, 156)
+scale = Vector2(0.17222221, 0.20549738)
+texture = ExtResource("8_ut1v0")
 
 [node name="back" type="Node2D" parent="." unique_id=1973465737]
 
-[node name="Label" type="Label" parent="back" unique_id=817936417]
-offset_left = 14.0
-offset_top = 18.0
-offset_right = 385.0
-offset_bottom = 251.0
-theme_override_colors/font_color = Color(0.8784314, 0.67058825, 0.54509807, 1)
-theme_override_font_sizes/font_size = 84
-text = "RPS"
-
-[node name="Label2" type="Label" parent="back" unique_id=748686281]
-offset_left = 13.0
-offset_top = 141.0
-offset_right = 384.0
-offset_bottom = 374.0
-theme_override_colors/font_color = Color(0.8784314, 0.67058825, 0.54509807, 1)
-theme_override_font_sizes/font_size = 39
-text = "EXTREME"
+[node name="Background" type="Sprite2D" parent="back" unique_id=769718918]
+position = Vector2(94.99999, 157)
+scale = Vector2(0.17407405, 0.2054974)
+texture = ExtResource("9_6lcat")
