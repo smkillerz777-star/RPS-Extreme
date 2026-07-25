@@ -77,6 +77,7 @@ scale = Vector2(0.17407405, 0.2054974)
 texture = ExtResource("9_6lcat")
 
 [node name="lock" type="Node2D" parent="." unique_id=407297266]
+visible = false
 
 [node name="Scissors" type="Sprite2D" parent="lock" unique_id=2126262453]
 position = Vector2(38.000004, 158.5)
@@ -84,15 +85,17 @@ scale = Vector2(0.06851851, 0.20484294)
 texture = ExtResource("2_6lcat")
 
 [node name="change" type="Node2D" parent="." unique_id=1630485186]
+visible = false
 
 [node name="Paper" type="Sprite2D" parent="change" unique_id=1578383330]
 position = Vector2(43, 159)
 scale = Vector2(0.07962963, 0.20549737)
 texture = ExtResource("3_6lcat")
 
-[node name="plusone" type="Node2D" parent="." unique_id=2035126872]
+[node name="plus_one" type="Node2D" parent="." unique_id=2035126872]
+visible = false
 
-[node name="Stone" type="Sprite2D" parent="plusone" unique_id=523341128]
+[node name="Stone" type="Sprite2D" parent="plus_one" unique_id=523341128]
 position = Vector2(44.25, 157)
 scale = Vector2(0.081018515, 0.2041885)
 texture = ExtResource("9_ut1v0")

@@ -8,14 +8,20 @@ var selected = []
 var tween
 var score1 = 0
 var score2 = 0
+var modifier_used1 = false
+var modifier_used2 = false
+var playable_cards1 = []
+var playable_cards2 = []
+var current_cards = []
 var game_started = false
 var card_enabled = false
 var game_ended = false
 var game_paused = false
+var is_modifier_mode = true
 const cardScene = preload("res://card.tscn")
 func _ready():
 	card_disable()
-	add_modifier("hehe")
+	#add_modifier("hehe")
 	if(global.again):
 		game_start()
 func _process(delta: float) -> void:
@@ -35,6 +41,7 @@ func _process(delta: float) -> void:
 func _on_timer_timeout() -> void:
 	if(turn==1):
 		turn = 2
+		current_cards = playable_cards2
 		global.selected1 = selected
 		selected = []
 		selection_end(global.selected1)
@@ -43,6 +50,7 @@ func _on_timer_timeout() -> void:
 	else:
 		global.selected2 = selected
 		selected = []
+		current_cards = playable_cards1
 		turn = 1
 		match_game+=1
 		$Label3.text = "Round: " + str(match_game)
@@ -92,25 +100,28 @@ func turn_over(card):
 
 func selection_start():
 	var pos = Vector2.ZERO
-	for i in range(4,11):
-		pos.y = ((i/4)-1)*(340)+355
-		if i<8:
-			pos.x = (i-4)*(250)+240
+	for i in current_cards.size():
+		pos.y = (i/4)*(340)+355
+		if(is_modifier_mode):
+			pos.x = i*250+240
 		else:
-			pos.x = (i-8)*(250)+365
-		tween.tween_property(get_child(i),"position",pos,0.15)
-		tween.tween_property(get_child(i),"rotation",0,0.15)
-		turn_front(get_child(i))
+			if i<4:
+				pos.x = i*250+240
+			else:
+				pos.x = i*250+365
+		tween.tween_property(current_cards[i],"position",pos,0.15)
+		tween.tween_property(current_cards[i],"rotation",0,0.15)
+		turn_front(current_cards[i])
 	$Label.visible = true
 
 func selection_end(selected_cards):
-	for i in range(0,7):
+	for i in current_cards.size():
 		if(selected_cards.find(i)==-1):
-			turn_back(get_child(i+4))
-	for i in range(4,11):
-		var angle = (i-8)*5/180.0*PI
-		tween.tween_property(get_child(i),"rotation",angle,0.15)
-		tween.tween_property(get_child(i),"position",Vector2(615,815),0.15)
+			turn_back(current_cards[i])
+	for i in current_cards.size():
+		var angle = (i-4)*5/180.0*PI
+		tween.tween_property(current_cards[i],"rotation",angle,0.15)
+		tween.tween_property(current_cards[i],"position",Vector2(615,815),0.15)
 
 func turn_front(card):
 	if(tween == null or not tween.is_valid()):
@@ -242,18 +253,19 @@ func game_start():
 func _on_start_pressed() -> void:
 	if($input1.text=="" or $input2.text==""):
 		return
+	modifier_selection_start()
 	global.player1 = $input1.text
 	global.player2 = $input2.text
 	game_start()
 
 func  card_enable():
-	for i in range(4,11):
-		get_child(i).get_child(1).disabled = false
+	for i in current_cards.size():
+		current_cards[i].get_child(1).disabled = false
 	card_enabled = true
 
 func  card_disable():
-	for i in range(4,11):
-		get_child(i).get_child(1).disabled = true
+	for i in current_cards.size():
+		current_cards[i].get_child(1).disabled = true
 	card_enabled = false
 
 func print_description(winner,loser):
@@ -314,3 +326,23 @@ func add_modifier(card_name):
 	card.add_child(Button.new())
 	card.name = card_name
 	add_child(card)
+
+func modifier_selection_start():
+	var i = 0
+	for card in $modifiers.get_children():
+		card.visible = true
+		card.position = Vector2(615,815)
+		card.rotation = (-15 + i*15)/180.0*PI
+		i+=1
+
+
+func _on_lock_pressed() -> void:
+	pass # Replace with function body.
+
+
+func _on_change_pressed() -> void:
+	pass # Replace with function body.
+
+
+func _on_plus_one_pressed() -> void:
+	pass # Replace with function body.
