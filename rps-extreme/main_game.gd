@@ -8,8 +8,11 @@ var selected = []
 var tween
 var score1 = 0
 var score2 = 0
+var modifier_selected = 0
+var max_modifier_selected = 1
 var modifier_used1 = false
 var modifier_used2 = false
+var modifier = []
 var playable_cards1 = []
 var playable_cards2 = []
 var current_cards = []
@@ -32,30 +35,48 @@ func _process(delta: float) -> void:
 		get_tree().change_scene_to_file("res://game_over.tscn")
 	if(card_enabled and tween != null and tween.is_valid() and game_started):
 		card_disable()
-	if(element_selected>=max_element_selected):
+	if(element_selected>=max_element_selected and modifier_selected>=max_modifier_selected):
 		_on_timer_timeout()
 		element_selected=0
+		modifier_selected=0
+	if(modifier_selected>=max_modifier_selected and match_game=="modifier_selection"):
+		_on_timer_timeout()
+		modifier_selected=0
 	max_element_selected = global.card_selected
 	max_match_game = global.rounds
 
 func _on_timer_timeout() -> void:
 	if(turn==1):
 		turn = 2
-		current_cards = playable_cards2
-		global.selected1 = selected
-		selected = []
-		selection_end(global.selected1)
-		label_animation(global.player2+" turn",0.5)
+		if(match_game!="modifier_selection"):
+			global.selected1 = selected
+			selected = []
+			selection_end(global.selected1)
+			current_cards = playable_cards2
+			label_animation(global.player2+" turn",0.5)
+		else:
+			global.modifier1 = modifier
+			modifier = []
+			selection_end(global.modifier1)
+			label_animation(global.player2+" select your modifier card",0.5)
 		selection_start()
 	else:
-		global.selected2 = selected
-		selected = []
-		current_cards = playable_cards1
 		turn = 1
-		match_game+=1
-		$Label3.text = "Round: " + str(match_game)
-		selection_end(global.selected2)
-		mmatch()
+		if(match_game!="modifier_selection"):
+			global.selected2 = selected
+			selected = []
+			match_game+=1
+			selection_end(global.selected2)
+			mmatch()
+			current_cards = playable_cards1
+			$round.text = "Round: " + str(match_game)
+		else:
+			global.modifier2 = modifier
+			modifier = []
+			selection_end(global.modifier2)
+			cards_hide()
+			match_game = 1
+			game_start()
 		
 func _on_fire_pressed() -> void:
 	element_selected+=1
@@ -155,7 +176,7 @@ func mmatch():
 		global.score2 += 1
 	else:
 		label_animation("tie",0.5)
-	$Label2.text = "Score: " + str(global.score1) + ":" + str(global.score2)
+	$score.text = "Score: " + str(global.score1) + ":" + str(global.score2)
 	if(match_game<=max_match_game):
 		label_animation(global.player1 + " turn",0.5)
 		score1 = 0
@@ -236,17 +257,27 @@ func label_animation(word,duration,size_font=150):
 func game_over():
 	game_ended = true
 func game_start():
-	game_started = true
-	$Label2.visible = true
-	$Label3.visible = true
-	for i in range(3,11):
+	$score.visible = true
+	$round.visible = true
+	$Label.visible = true
+	for i in range(4,11):
 		get_child(i).visible = true
+		playable_cards1.append(get_child(i))
+		playable_cards2.append(get_child(i))
+	for card in global.modifier1:
+		playable_cards1.append($modifiers.get_child(card))
+	for card in global.modifier2:
+		playable_cards2.append($modifiers.get_child(card))
+	print(playable_cards1)
+	print(playable_cards2)
+	current_cards = playable_cards1
 	label_animation(global.player1+" turn",0.5)
 	selection_start()
 
 func _on_start_pressed() -> void:
 	if($input1.text=="" or $input2.text==""):
 		return
+	game_started = true
 	global.player1 = $input1.text
 	global.player2 = $input2.text
 	$start.visible = false
@@ -255,9 +286,14 @@ func _on_start_pressed() -> void:
 	$player1.visible = false
 	$player2.visible = false
 	tween = create_tween()
-	current_cards = $modifiers.get_children()
-	cards_show()
-	selection_start()
+	if(is_modifier_mode):
+		match_game = "modifier_selection"
+		current_cards = $modifiers.get_children()
+		cards_show()
+		label_animation(global.player1+" select your modifier card",0.5)
+		selection_start()
+	else:
+		game_start()
 
 func  card_enable():
 	for i in current_cards.size():
@@ -321,18 +357,11 @@ func _on_resume_pressed() -> void:
 	tween2.tween_property($resume,"visible",false,0.01)
 	game_paused = false
 
-func add_modifier(card_name):
-	var card = Node2D.new()
-	card.add_child(cardScene.instantiate())
-	card.add_child(Button.new())
-	card.name = card_name
-	add_child(card)
-
 func cards_show():
 	var i = 0
 	for card in current_cards:
 		card.visible = true
-		card.position = Vector2(615,1015)
+		card.position = Vector2(615,1050)
 		card.rotation = -15/180.0*PI
 		i+=1
 	i = 0
@@ -361,18 +390,22 @@ func cards_hide():
 	i=0
 	for card in current_cards:
 		if(i==0):
-			tween.tween_property(card,"position",Vector2(615,1015),0.3)
+			tween.tween_property(card,"position",Vector2(615,1050),0.3)
 		else:
-			tween.parallel().tween_property(card,"position",Vector2(615,1015),0.3)
+			tween.parallel().tween_property(card,"position",Vector2(615,1050),0.3)
 		i+=1
 
 func _on_lock_pressed() -> void:
-	pass # Replace with function body.
-
+	turn_over($modifiers.get_child(0))
+	modifier.append(0)
+	modifier_selected+=1
 
 func _on_change_pressed() -> void:
-	pass # Replace with function body.
-
+	turn_over($modifiers.get_child(1))
+	modifier.append(1)
+	modifier_selected+=1
 
 func _on_plus_one_pressed() -> void:
-	pass # Replace with function body.
+	turn_over($modifiers.get_child(2))
+	modifier.append(2)
+	modifier_selected+=1

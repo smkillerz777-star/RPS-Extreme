@@ -152,6 +152,38 @@ position = Vector2(-190, -315)
 offset_left = -190.0
 offset_top = -315.0
 
+[node name="modifiers" type="Node2D" parent="." unique_id=202766236]
+
+[node name="lock" type="Node2D" parent="modifiers" unique_id=1622598376]
+visible = false
+
+[node name="card" parent="modifiers/lock" unique_id=1441030641 instance=ExtResource("2_yx7mw")]
+position = Vector2(-190, -315)
+
+[node name="lock" type="Button" parent="modifiers/lock" unique_id=1115516188]
+offset_left = -190.0
+offset_top = -315.0
+
+[node name="change" type="Node2D" parent="modifiers" unique_id=2128330281]
+visible = false
+
+[node name="card" parent="modifiers/change" unique_id=676071725 instance=ExtResource("2_yx7mw")]
+position = Vector2(-190, -315)
+
+[node name="change" type="Button" parent="modifiers/change" unique_id=96623359]
+offset_left = -190.0
+offset_top = -315.0
+
+[node name="plus_one" type="Node2D" parent="modifiers" unique_id=140143895]
+visible = false
+
+[node name="card" parent="modifiers/plus_one" unique_id=569046262 instance=ExtResource("2_yx7mw")]
+position = Vector2(-190, -315)
+
+[node name="plus_one" type="Button" parent="modifiers/plus_one" unique_id=670042078]
+offset_left = -190.0
+offset_top = -315.0
+
 [node name="player2" type="Label" parent="." unique_id=1254290456]
 layout_mode = 1
 anchors_preset = -1
@@ -219,7 +251,7 @@ offset_left = -95.0
 theme_override_font_sizes/font_size = 40
 text = "EXIT"
 
-[node name="Label2" type="Label" parent="." unique_id=1812311553]
+[node name="score" type="Label" parent="." unique_id=1812311553]
 visible = false
 layout_mode = 1
 anchors_preset = 1
@@ -234,7 +266,7 @@ theme_override_colors/font_shadow_color = Color(0.7764706, 0.53333336, 0.3882353
 theme_override_font_sizes/font_size = 16
 text = "Score: 0:0"
 
-[node name="Label3" type="Label" parent="." unique_id=711932285]
+[node name="round" type="Label" parent="." unique_id=711932285]
 visible = false
 layout_mode = 1
 anchors_preset = 1
@@ -249,37 +281,6 @@ theme_override_colors/font_shadow_color = Color(0.7764706, 0.53333336, 0.3882353
 theme_override_font_sizes/font_size = 16
 text = "Round: 1"
 
-[node name="modifiers" type="Node2D" parent="." unique_id=202766236]
-
-[node name="lock" type="Node2D" parent="modifiers" unique_id=1622598376]
-
-[node name="card" parent="modifiers/lock" unique_id=1441030641 instance=ExtResource("2_yx7mw")]
-position = Vector2(-190, -315)
-
-[node name="lock" type="Button" parent="modifiers/lock" unique_id=1115516188]
-offset_left = -190.0
-offset_top = -315.0
-
-[node name="change" type="Node2D" parent="modifiers" unique_id=2128330281]
-visible = false
-
-[node name="card" parent="modifiers/change" unique_id=676071725 instance=ExtResource("2_yx7mw")]
-position = Vector2(-190, -315)
-
-[node name="change" type="Button" parent="modifiers/change" unique_id=96623359]
-offset_left = -190.0
-offset_top = -315.0
-
-[node name="plus_one" type="Node2D" parent="modifiers" unique_id=140143895]
-visible = false
-
-[node name="card" parent="modifiers/plus_one" unique_id=569046262 instance=ExtResource("2_yx7mw")]
-position = Vector2(-190, -315)
-
-[node name="plus_one" type="Button" parent="modifiers/plus_one" unique_id=670042078]
-offset_left = -190.0
-offset_top = -315.0
-
 [connection signal="pressed" from="fire/fire2" to="." method="_on_fire_pressed"]
 [connection signal="pressed" from="paper/paper" to="." method="_on_paper_pressed"]
 [connection signal="pressed" from="water/water" to="." method="_on_water_pressed"]
@@ -287,10 +288,10 @@ offset_top = -315.0
 [connection signal="pressed" from="scissors/scissors" to="." method="_on_scissors_pressed"]
 [connection signal="pressed" from="air/air" to="." method="_on_air_pressed"]
 [connection signal="pressed" from="rock/rock" to="." method="_on_rock_pressed"]
+[connection signal="pressed" from="modifiers/lock/lock" to="." method="_on_lock_pressed"]
+[connection signal="pressed" from="modifiers/change/change" to="." method="_on_change_pressed"]
+[connection signal="pressed" from="modifiers/plus_one/plus_one" to="." method="_on_plus_one_pressed"]
 [connection signal="pressed" from="start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="exit" to="." method="_on_exit_pressed"]
-[connection signal="pressed" from="modifiers/lock/lock" to="." method="_on_lock_pressed"]
-[connection signal="pressed" from="modifiers/change/change" to="." method="_on_change_pressed"]
-[connection signal="pressed" from="modifiers/plus_one/plus_one" to="." method="_on_plus_one_pressed"]
