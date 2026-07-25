@@ -237,26 +237,27 @@ func game_over():
 	game_ended = true
 func game_start():
 	game_started = true
-	$start.visible = false
-	$input1.visible = false
-	$input2.visible = false
-	$player1.visible = false
-	$player2.visible = false
 	$Label2.visible = true
 	$Label3.visible = true
 	for i in range(3,11):
 		get_child(i).visible = true
-	tween = create_tween()
 	label_animation(global.player1+" turn",0.5)
 	selection_start()
 
 func _on_start_pressed() -> void:
 	if($input1.text=="" or $input2.text==""):
 		return
-	modifier_selection_start()
 	global.player1 = $input1.text
 	global.player2 = $input2.text
-	game_start()
+	$start.visible = false
+	$input1.visible = false
+	$input2.visible = false
+	$player1.visible = false
+	$player2.visible = false
+	tween = create_tween()
+	current_cards = $modifiers.get_children()
+	cards_show()
+	selection_start()
 
 func  card_enable():
 	for i in current_cards.size():
@@ -327,14 +328,43 @@ func add_modifier(card_name):
 	card.name = card_name
 	add_child(card)
 
-func modifier_selection_start():
+func cards_show():
 	var i = 0
-	for card in $modifiers.get_children():
+	for card in current_cards:
 		card.visible = true
-		card.position = Vector2(615,815)
-		card.rotation = (-15 + i*15)/180.0*PI
+		card.position = Vector2(615,1015)
+		card.rotation = -15/180.0*PI
+		i+=1
+	i = 0
+	for card in current_cards:
+		if(i==0):
+			tween.tween_property(card,"position",Vector2(615,815),0.3)
+		else:
+			tween.parallel().tween_property(card,"position",Vector2(615,815),0.3)
+		i+=1
+	i=0
+	for card in current_cards:
+		if(i==0):
+			tween.tween_property(card,"rotation",-15/180.0*PI,0)
+		else:
+			tween.parallel().tween_property(card,"rotation",(-15 + i*15)/180.0*PI,0.1*i)
 		i+=1
 
+func cards_hide():
+	var i =0
+	for card in current_cards:
+		if(i==0):
+			tween.tween_property(card,"rotation",0,0)
+		else:
+			tween.parallel().tween_property(card,"rotation",0,0.1*i)
+		i+=1
+	i=0
+	for card in current_cards:
+		if(i==0):
+			tween.tween_property(card,"position",Vector2(615,1015),0.3)
+		else:
+			tween.parallel().tween_property(card,"position",Vector2(615,1015),0.3)
+		i+=1
 
 func _on_lock_pressed() -> void:
 	pass # Replace with function body.
