@@ -35,11 +35,11 @@ func _process(delta: float) -> void:
 		get_tree().change_scene_to_file("res://game_over.tscn")
 	if(card_enabled and tween != null and tween.is_valid() and game_started):
 		card_disable()
-	if(element_selected>=max_element_selected and modifier_selected>=max_modifier_selected):
+	if(element_selected+modifier_selected>=max_element_selected):
 		_on_timer_timeout()
 		element_selected=0
 		modifier_selected=0
-	if(modifier_selected>=max_modifier_selected and match_game=="modifier_selection"):
+	if(modifier_selected>=max_modifier_selected and str(match_game)=="modifier_selection"):
 		_on_timer_timeout()
 		modifier_selected=0
 	max_element_selected = global.card_selected
@@ -48,7 +48,7 @@ func _process(delta: float) -> void:
 func _on_timer_timeout() -> void:
 	if(turn==1):
 		turn = 2
-		if(match_game!="modifier_selection"):
+		if(str(match_game)!="modifier_selection"):
 			global.selected1 = selected
 			selected = []
 			selection_end(global.selected1)
@@ -62,7 +62,7 @@ func _on_timer_timeout() -> void:
 		selection_start()
 	else:
 		turn = 1
-		if(match_game!="modifier_selection"):
+		if(str(match_game)!="modifier_selection"):
 			global.selected2 = selected
 			selected = []
 			match_game+=1
@@ -76,7 +76,7 @@ func _on_timer_timeout() -> void:
 			selection_end(global.modifier2)
 			cards_hide()
 			match_game = 1
-			game_start()
+			tween.tween_callback(game_start)
 		
 func _on_fire_pressed() -> void:
 	element_selected+=1
@@ -123,13 +123,13 @@ func selection_start():
 	var pos = Vector2.ZERO
 	for i in current_cards.size():
 		pos.y = (i/4)*(340)+355
-		if(is_modifier_mode):
-			pos.x = i*250+240
-		else:
-			if i<4:
+		if i<4:
 				pos.x = i*250+240
+		else:
+			if(is_modifier_mode):
+				pos.x = (i-4)*250+240
 			else:
-				pos.x = i*250+365
+				pos.x = (i-4)*250+365
 		tween.tween_property(current_cards[i],"position",pos,0.15)
 		tween.tween_property(current_cards[i],"rotation",0,0.15)
 		turn_front(current_cards[i])
@@ -261,16 +261,18 @@ func game_start():
 	$round.visible = true
 	$Label.visible = true
 	for i in range(4,11):
-		get_child(i).visible = true
 		playable_cards1.append(get_child(i))
 		playable_cards2.append(get_child(i))
 	for card in global.modifier1:
 		playable_cards1.append($modifiers.get_child(card))
 	for card in global.modifier2:
 		playable_cards2.append($modifiers.get_child(card))
-	print(playable_cards1)
-	print(playable_cards2)
+	for card in $modifiers.get_children():
+		card.visible = false
 	current_cards = playable_cards1
+	tween.kill()
+	tween = create_tween()
+	cards_show()
 	label_animation(global.player1+" turn",0.5)
 	selection_start()
 
@@ -359,41 +361,35 @@ func _on_resume_pressed() -> void:
 
 func cards_show():
 	var i = 0
+	print("working1")
 	for card in current_cards:
 		card.visible = true
 		card.position = Vector2(615,1050)
-		card.rotation = -15/180.0*PI
-		i+=1
-	i = 0
+		card.rotation = deg_to_rad(-15)
 	for card in current_cards:
-		if(i==0):
+		if(card==current_cards[0]):
 			tween.tween_property(card,"position",Vector2(615,815),0.3)
 		else:
 			tween.parallel().tween_property(card,"position",Vector2(615,815),0.3)
-		i+=1
-	i=0
 	for card in current_cards:
 		if(i==0):
-			tween.tween_property(card,"rotation",-15/180.0*PI,0)
+			i+=1
+			continue
 		else:
-			tween.parallel().tween_property(card,"rotation",(-15 + i*15)/180.0*PI,0.1*i)
+			tween.parallel().tween_property(card,"rotation",deg_to_rad(-15 + i*15),0.1*i)
 		i+=1
 
 func cards_hide():
-	var i =0
 	for card in current_cards:
-		if(i==0):
-			tween.tween_property(card,"rotation",0,0)
+		if(card==current_cards[0]):
+			continue
 		else:
-			tween.parallel().tween_property(card,"rotation",0,0.1*i)
-		i+=1
-	i=0
+			tween.parallel().tween_property(card,"rotation",0,0.1)
 	for card in current_cards:
-		if(i==0):
+		if(current_cards[0]==card):
 			tween.tween_property(card,"position",Vector2(615,1050),0.3)
 		else:
 			tween.parallel().tween_property(card,"position",Vector2(615,1050),0.3)
-		i+=1
 
 func _on_lock_pressed() -> void:
 	turn_over($modifiers.get_child(0))

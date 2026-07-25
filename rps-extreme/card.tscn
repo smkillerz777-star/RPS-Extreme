@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://b64pyq6s3xqg4" path="res://earth.jpg" id="8_ut1v0"]
 [ext_resource type="Texture2D" uid="uid://ds0obj3i7mxok" path="res://background.jpg" id="9_6lcat"]
 [ext_resource type="Texture2D" uid="uid://b37n4gu0gr1hx" path="res://stone.jpg" id="9_ut1v0"]
+[ext_resource type="Texture2D" uid="uid://8mem6atrbc5j" path="res://lock.jpg" id="10_vno60"]
+[ext_resource type="Texture2D" uid="uid://doup4jsspss6a" path="res://plusone.jpg" id="11_l0gnn"]
 
 [node name="card" type="Node2D" unique_id=1750312630]
 script = ExtResource("1_rjlel")
@@ -79,10 +81,10 @@ texture = ExtResource("9_6lcat")
 [node name="lock" type="Node2D" parent="." unique_id=407297266]
 visible = false
 
-[node name="Scissors" type="Sprite2D" parent="lock" unique_id=2126262453]
-position = Vector2(38.000004, 158.5)
-scale = Vector2(0.06851851, 0.20484294)
-texture = ExtResource("2_6lcat")
+[node name="lock" type="Sprite2D" parent="lock" unique_id=1259740349]
+position = Vector2(91.56249, 160)
+scale = Vector2(0.17488426, 0.20647904)
+texture = ExtResource("10_vno60")
 
 [node name="change" type="Node2D" parent="." unique_id=1630485186]
 visible = false
@@ -95,7 +97,7 @@ texture = ExtResource("3_6lcat")
 [node name="plus_one" type="Node2D" parent="." unique_id=2035126872]
 visible = false
 
-[node name="Stone" type="Sprite2D" parent="plus_one" unique_id=523341128]
-position = Vector2(44.25, 157)
-scale = Vector2(0.081018515, 0.2041885)
-texture = ExtResource("9_ut1v0")
+[node name="plusone" type="Sprite2D" parent="plus_one" unique_id=983454136]
+position = Vector2(93.375, 157.50002)
+scale = Vector2(0.17337964, 0.20484291)
+texture = ExtResource("11_l0gnn")
