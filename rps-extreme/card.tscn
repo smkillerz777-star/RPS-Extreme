@@ -10,23 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://ds0obj3i7mxok" path="res://background.jpg" id="9_6lcat"]
 [ext_resource type="Texture2D" uid="uid://b37n4gu0gr1hx" path="res://stone.jpg" id="9_ut1v0"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b4rk6"]
-bg_color = Color(0.2627451, 0.3882353, 0.49411765, 1)
-border_width_left = 6
-border_width_top = 6
-border_width_right = 6
-border_width_bottom = 6
-border_color = Color(0.19607843, 0.11764706, 0.28235295, 1)
-corner_detail = 1
-shadow_size = 10
-
 [node name="card" type="Node2D" unique_id=1750312630]
 script = ExtResource("1_rjlel")
-
-[node name="Panel" type="Panel" parent="." unique_id=836641643]
-offset_right = 190.0
-offset_bottom = 315.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_b4rk6")
 
 [node name="scissors" type="Node2D" parent="." unique_id=929358708]
 visible = false
@@ -90,3 +75,24 @@ texture = ExtResource("8_ut1v0")
 position = Vector2(94.99999, 157)
 scale = Vector2(0.17407405, 0.2054974)
 texture = ExtResource("9_6lcat")
+
+[node name="lock" type="Node2D" parent="." unique_id=407297266]
+
+[node name="Scissors" type="Sprite2D" parent="lock" unique_id=2126262453]
+position = Vector2(38.000004, 158.5)
+scale = Vector2(0.06851851, 0.20484294)
+texture = ExtResource("2_6lcat")
+
+[node name="change" type="Node2D" parent="." unique_id=1630485186]
+
+[node name="Paper" type="Sprite2D" parent="change" unique_id=1578383330]
+position = Vector2(43, 159)
+scale = Vector2(0.07962963, 0.20549737)
+texture = ExtResource("3_6lcat")
+
+[node name="plusone" type="Node2D" parent="." unique_id=2035126872]
+
+[node name="Stone" type="Sprite2D" parent="plusone" unique_id=523341128]
+position = Vector2(44.25, 157)
+scale = Vector2(0.081018515, 0.2041885)
+texture = ExtResource("9_ut1v0")

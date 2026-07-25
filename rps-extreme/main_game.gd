@@ -12,8 +12,10 @@ var game_started = false
 var card_enabled = false
 var game_ended = false
 var game_paused = false
+const cardScene = preload("res://card.tscn")
 func _ready():
 	card_disable()
+	add_modifier("hehe")
 	if(global.again):
 		game_start()
 func _process(delta: float) -> void:
@@ -305,3 +307,10 @@ func _on_resume_pressed() -> void:
 	tween2.tween_property($exit,"visible",false,0.01)
 	tween2.tween_property($resume,"visible",false,0.01)
 	game_paused = false
+
+func add_modifier(card_name):
+	var card = Node2D.new()
+	card.add_child(cardScene.instantiate())
+	card.add_child(Button.new())
+	card.name = card_name
+	add_child(card)
