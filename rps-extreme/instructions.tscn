@@ -107,6 +107,54 @@ position = Vector2(510.00003, 317.00003)
 scale = Vector2(0.70105565, 0.69593257)
 texture = ExtResource("2_h8hbf")
 
+[node name="page4" type="Control" parent="." unique_id=432901755]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Heading" type="Label" parent="page4" unique_id=843598048]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.174
+anchor_top = 0.147
+anchor_right = 0.174
+anchor_bottom = 0.156
+offset_left = 55.08
+offset_top = -49.839996
+offset_right = 633.08
+offset_bottom = 19.160011
+theme_override_colors/font_color = Color(0.8784314, 0.67058825, 0.54509807, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "HOW MODIFIERS WORK"
+
+[node name="Label" type="Label" parent="page4" unique_id=819513076]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.031
+anchor_top = 0.326
+anchor_right = 0.969
+anchor_bottom = 0.871
+offset_left = 5.5200005
+offset_top = -106.72
+offset_right = 5.5200195
+offset_bottom = 52.880005
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.8784314, 0.67058825, 0.54509807, 1)
+theme_override_colors/font_shadow_color = Color(0.7764706, 0.53333336, 0.3882353, 1)
+theme_override_font_sizes/font_size = 24
+text = "Modifiers are special cards that can be used only once per match. There are currently 3 modifiers in the game:
+1) Lock Card: this card forces the other player to use the same card the lock card was played against in the next round .
+2) Change Card: This card tells the player in advance if they will use and give them a chance to change their cards order to turn the tide
+3) +1 Card: this cards increases the number of cards that player can select by 1(excluding +1 card) , the next 2 cards after +1 fight as a combined unit to the opponents cards corresponding to the +1 card.. The result is the best result between the two.Ex: next two cards after +1 are fire and water and corresponding opponent card is air since air loses to fire but wins against water the winner will be the first player since +1 chooses the best result.
+In a normal fight both Change and Lock card ties with the standard 7 elements. There are also some special effects like when lock fight against lock nothing happens. I would like players to discover these combinations while playing"
+autowrap_mode = 3
+
 [node name="page1" type="Control" parent="." unique_id=1579840271]
 layout_mode = 1
 anchors_preset = 15

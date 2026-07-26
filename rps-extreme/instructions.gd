@@ -13,6 +13,9 @@ func _on_backward_pressed() -> void:
 	if($page3.visible == true):
 		$page2.visible = true
 		$page3.visible = false
+	if($page4.visible == true):
+		$page3.visible = true
+		$page4.visible = false
 
 func _on_forward_pressed() -> void:
 	$backward.visible = true
@@ -22,4 +25,7 @@ func _on_forward_pressed() -> void:
 	elif($page2.visible == true):
 		$page2.visible = false
 		$page3.visible = true
+	elif($page3.visible == true):
+		$page3.visible = false
+		$page4.visible = true
 		$forward.visible = false

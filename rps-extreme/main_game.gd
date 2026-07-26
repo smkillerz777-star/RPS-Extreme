@@ -25,10 +25,11 @@ var game_started = false
 var card_enabled = false
 var game_ended = false
 var game_paused = false
-var is_modifier_mode = true
+var is_modifier_mode = false
 const cardScene = preload("res://card.tscn")
 func _ready():
 	card_disable()
+	is_modifier_mode = global.modifier_mode
 	max_element_selected = global.card_selected
 	max_match_game = global.rounds
 	if(global.again):
@@ -229,7 +230,7 @@ func mmatch():
 				global.selected1.insert(i,defeated[0])
 			else:
 				global.selected1.insert(i,global.selected2[global.selected1.find(9)])
-		elif(global.selected2.find(9)!=-1 and plus_one_used2):
+		if(global.selected2.find(9)!=-1 and plus_one_used2):
 			for i in range(global.selected2.find(9)+1,global.selected2.find(9)+3):
 				var res = fight(global.selected2[i],global.selected1[global.selected2.find(9)])
 				if(res==global.selected2[i]):

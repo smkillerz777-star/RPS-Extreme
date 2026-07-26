@@ -14,6 +14,7 @@ var winner = "player1"
 var rounds = 3
 var card_selected = 3
 var again = false
+var modifier_mode = true
 var description = "fire burns paper
 fire boils water
 fire melts scissors

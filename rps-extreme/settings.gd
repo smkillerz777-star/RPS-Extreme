@@ -1,6 +1,9 @@
 extends Control
 
-
+func _ready() -> void:
+	$CheckBox.button_pressed = global.modifier_mode
+	$input1.text = str(global.rounds)
+	$input2.text = str(global.card_selected)
 func _on_back_pressed() -> void:
 	if($input1.text.is_valid_int() and $input2.text.is_valid_int() and int($input1.text)>0 and int($input2.text)>0):
 		global.rounds = int($input1.text)
@@ -11,3 +14,7 @@ func _on_back_pressed() -> void:
 		tween.tween_property($warning,"modulate:a",1.0,0.5)
 		tween.tween_interval(2.0)
 		tween.tween_property($warning,"modulate:a",0.0,1)
+
+
+func _on_check_box_toggled(toggled_on: bool) -> void:
+	global.modifier_mode = toggled_on
