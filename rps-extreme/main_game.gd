@@ -13,7 +13,10 @@ var max_modifier_selected = 1
 var locked_element : int = -1
 var locked_player : int = -1
 var locked_used = false
-var change_used = false
+var change_used1 = false
+var change_used2 = false
+var plus_one_used1 = false
+var plus_one_used2 = false
 var modifier = []
 var playable_cards1 = []
 var playable_cards2 = []
@@ -26,6 +29,8 @@ var is_modifier_mode = true
 const cardScene = preload("res://card.tscn")
 func _ready():
 	card_disable()
+	max_element_selected = global.card_selected
+	max_match_game = global.rounds
 	if(global.again):
 		_on_start_pressed()
 func _process(delta: float) -> void:
@@ -43,14 +48,15 @@ func _process(delta: float) -> void:
 	if(modifier_selected>=max_modifier_selected and str(match_game)=="modifier_selection"):
 		_on_timer_timeout()
 		modifier_selected=0
-	max_element_selected = global.card_selected
-	max_match_game = global.rounds
 
 func _on_timer_timeout() -> void:
 	if(turn==1):
 		turn = 2
-		print("yup that is the problem2")
 		if(str(match_game)!="modifier_selection"):
+			print(max_element_selected)
+			print(global.card_selected)
+			if(max_element_selected>global.card_selected):
+				max_element_selected = global.rounds
 			global.selected1 = selected
 			selected = []
 			selection_end(global.selected1)
@@ -69,8 +75,9 @@ func _on_timer_timeout() -> void:
 		tween.tween_callback(selection_start)
 	else:
 		turn = 1
-		print("yup that is the problem")
 		if(str(match_game)!="modifier_selection"):
+			if(max_element_selected>global.card_selected):
+				max_element_selected = global.rounds
 			global.selected2 = selected
 			selected = []
 			match_game+=1
@@ -202,7 +209,44 @@ func turn_back(card):
 	tween.tween_property(card,"scale:x",1.0,0.1)
 	
 func mmatch():
-	if((global.selected1.find(8)!=-1 or global.selected2.find(8)!=-1) and not change_used):
+	if((global.selected1.find(9)!=-1 or global.selected2.find(9)!=-1) and not (plus_one_used1 and plus_one_used2)):
+		var won = []
+		var defeated = []
+		if(global.selected1.find(9)!=-1 and plus_one_used1):
+			for i in range(global.selected1.find(9)+1,global.selected1.find(9)+3):
+				var res = fight(global.selected1[i],global.selected2[global.selected1.find(9)])
+				if(res==global.selected1[i]):
+					won.append(global.selected1[i])
+				elif(res==global.selected2[global.selected1.find(9)]):
+					defeated.append(global.selected1[i])
+			var i = global.selected1.find(9)
+			global.selected1.remove_at(i)
+			global.selected1.remove_at(i+1)
+			global.selected1.remove_at(i+2)
+			if(not won.is_empty()):
+				global.selected1.insert(i,won[0])
+			elif(defeated.size()==2):
+				global.selected1.insert(i,defeated[0])
+			else:
+				global.selected1.insert(i,global.selected2[global.selected1.find(9)])
+		elif(global.selected2.find(9)!=-1 and plus_one_used2):
+			for i in range(global.selected2.find(9)+1,global.selected2.find(9)+3):
+				var res = fight(global.selected2[i],global.selected1[global.selected2.find(9)])
+				if(res==global.selected2[i]):
+					won.append(global.selected2[i])
+				elif(res==global.selected1[global.selected2.find(9)]):
+					defeated.append(global.selected2[i])
+			var i = global.selected2.find(9)
+			global.selected2.remove_at(i)
+			global.selected2.remove_at(i+1)
+			global.selected2.remove_at(i+2)
+			if(not won.is_empty()):
+				global.selected2.insert(i,won[0])
+			elif(defeated.size()==2):
+				global.selected2.insert(i,defeated[0])
+			else:
+				global.selected2.insert(i,global.selected1[global.selected2.find(9)])
+	if((global.selected1.find(8)!=-1 or global.selected2.find(8)!=-1) and not (change_used1 and change_used2)):
 		var s1 = 0
 		var s2 = 0
 		for i in range(max_element_selected):
@@ -211,7 +255,7 @@ func mmatch():
 				s1+=1
 			elif(str(res)==str(global.selected2[i])):
 				s2+=1
-		if(s1>=s2 and global.selected2.find(8)!=-1):
+		if(s1>=s2 and global.selected2.find(8)!=-1 and not change_used1):
 			label_animation(global.player1 + " will win the match",0.5,100) 
 			label_animation(global.player2 + " turn",0.5) 
 			tween.tween_callback(func() : 
@@ -226,9 +270,9 @@ func mmatch():
 				element_selected = 0
 				selection_start()
 				turn = 2
-				change_used = true)
+				change_used1 = true)
 			return
-		elif(s2>=s1 and global.selected1.find(8)!=-1):
+		elif(s2>=s1 and global.selected1.find(8)!=-1 and change_used2):
 			label_animation(global.player2 + " will win the match",0.5,100) 
 			label_animation(global.player1 + " turn",0.5) 
 			tween.tween_callback(func() : 
@@ -243,7 +287,7 @@ func mmatch():
 				element_selected = 0
 				selection_start()
 				turn = 1
-				change_used = true)
+				change_used2 = true)
 			return
 	for i in range(max_element_selected):
 		var res = fight(global.selected1[i],global.selected2[i])
@@ -281,7 +325,33 @@ func mmatch():
 			tween.tween_callback(selection_start)
 
 func fight(element1,element2):
-	if(element1==0):
+	if(element1==7):
+		if(element2<7 or element2==8):
+			locked_element = element2
+			locked_player = 2
+			playable_cards1[playable_cards1.size()-1].visible = false
+			playable_cards1.remove_at(playable_cards1.size()-1)
+			label_animation(str(global.player1) + " used lock",1,70)
+			label_animation(str(global.player2) + " must use " + number_to_card(element2).name + " on next round",1,50)
+		return null
+	elif(element1==8):
+		playable_cards1[playable_cards1.size()-1].visible = false
+		playable_cards1.remove_at(playable_cards1.size()-1)
+		return null
+	if(element2==7):
+		if(element1<7 or element1==8):
+			locked_element = element1
+			locked_player = 1
+			playable_cards2[playable_cards2.size()-1].visible = false
+			playable_cards2.remove_at(playable_cards2.size()-1)
+			label_animation(str(global.player2) + " used lock",1,70)
+			label_animation(str(global.player1) + " must use " + number_to_card(element1).name + " on next round",1,50)
+		return null
+	elif(element2==8):
+		playable_cards2[playable_cards2.size()-1].visible = false
+		playable_cards2.remove_at(playable_cards2.size()-1)
+		return null
+	elif(element1==0):
 		if(element2==1 or element2==2 or element2==4):
 			return element1
 		elif(element2==3 or element2==5 or element2==6):
@@ -330,32 +400,6 @@ func fight(element1,element2):
 			return element2
 		else:
 			return null
-	elif(element1==7):
-		if(element2<7 or element2==8):
-			locked_element = element2
-			locked_player = 2
-			playable_cards1[playable_cards1.size()-1].visible = false
-			playable_cards1.remove_at(playable_cards1.size()-1)
-			label_animation(str(global.player1) + " used lock",1,70)
-			label_animation(str(global.player2) + " must use " + number_to_card(element2).name + " on next round",1,50)
-		return null
-	elif(element2==7):
-		if(element1<7 or element1==8):
-			locked_element = element1
-			locked_player = 1
-			playable_cards2[playable_cards2.size()-1].visible = false
-			playable_cards2.remove_at(playable_cards2.size()-1)
-			label_animation(str(global.player2) + " used lock",1,70)
-			label_animation(str(global.player1) + " must use " + number_to_card(element1).name + " on next round",1,50)
-		return null
-	elif(element1==8):
-		playable_cards1[playable_cards1.size()-1].visible = false
-		playable_cards1.remove_at(playable_cards1.size()-1)
-		return null
-	elif(element2==8):
-		playable_cards2[playable_cards2.size()-1].visible = false
-		playable_cards2.remove_at(playable_cards2.size()-1)
-		return null
 	return null
 func label_animation(word,duration,size_font=150):
 	tween.tween_property($Label,"text",word,0.01)
@@ -533,6 +577,11 @@ func _on_plus_one_pressed() -> void:
 		if(locked_element==-1 or not turn==locked_player or locked_used):
 			element_selected+=1
 			selected.append(9)
+			max_element_selected+=2
+			if(turn==1):
+				plus_one_used1 = true
+			elif(turn==2):
+				plus_one_used2 = true
 		else:
 			lock_check(9)
 
