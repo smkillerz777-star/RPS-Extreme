@@ -382,24 +382,22 @@ func _on_resume_pressed() -> void:
 	game_paused = false
 
 func cards_show():
-	var i = 0
 	print("working1")
 	for card in current_cards:
 		card.visible = true
 		card.position = Vector2(615,1050)
-		card.rotation = deg_to_rad(-15)
+		card.rotation = deg_to_rad(-20)
 	for card in current_cards:
 		if(card==current_cards[0]):
 			tween.tween_property(card,"position",Vector2(615,815),0.3)
 		else:
 			tween.parallel().tween_property(card,"position",Vector2(615,815),0.3)
-	for card in current_cards:
+	for i in current_cards.size():
+		var angle = (i-4)*5/180.0*PI
 		if(i==0):
-			i+=1
 			continue
 		else:
-			tween.parallel().tween_property(card,"rotation",deg_to_rad(-15 + i*15),0.1*i)
-		i+=1
+			tween.parallel().tween_property(current_cards[i],"rotation",angle,0.05*i)
 
 func cards_hide():
 	for card in current_cards:
