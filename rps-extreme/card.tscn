@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://b64pyq6s3xqg4" path="res://earth.jpg" id="8_ut1v0"]
 [ext_resource type="Texture2D" uid="uid://ds0obj3i7mxok" path="res://background.jpg" id="9_6lcat"]
 [ext_resource type="Texture2D" uid="uid://b37n4gu0gr1hx" path="res://stone.jpg" id="9_ut1v0"]
+[ext_resource type="Texture2D" uid="uid://pegvdp3xjn07" path="res://change.jpg" id="10_l0gnn"]
 [ext_resource type="Texture2D" uid="uid://8mem6atrbc5j" path="res://lock.jpg" id="10_vno60"]
 [ext_resource type="Texture2D" uid="uid://doup4jsspss6a" path="res://plusone.jpg" id="11_l0gnn"]
 
@@ -71,13 +72,6 @@ position = Vector2(96, 156)
 scale = Vector2(0.17222221, 0.20549738)
 texture = ExtResource("8_ut1v0")
 
-[node name="back" type="Node2D" parent="." unique_id=1973465737]
-
-[node name="Background" type="Sprite2D" parent="back" unique_id=769718918]
-position = Vector2(94.99999, 157)
-scale = Vector2(0.17407405, 0.2054974)
-texture = ExtResource("9_6lcat")
-
 [node name="lock" type="Node2D" parent="." unique_id=407297266]
 visible = false
 
@@ -89,10 +83,10 @@ texture = ExtResource("10_vno60")
 [node name="change" type="Node2D" parent="." unique_id=1630485186]
 visible = false
 
-[node name="Paper" type="Sprite2D" parent="change" unique_id=1578383330]
-position = Vector2(43, 159)
-scale = Vector2(0.07962963, 0.20549737)
-texture = ExtResource("3_6lcat")
+[node name="change" type="Sprite2D" parent="change" unique_id=1505508036]
+position = Vector2(94.74999, 158.25)
+scale = Vector2(0.17083332, 0.20517015)
+texture = ExtResource("10_l0gnn")
 
 [node name="plus_one" type="Node2D" parent="." unique_id=2035126872]
 visible = false
@@ -101,3 +95,10 @@ visible = false
 position = Vector2(93.375, 157.50002)
 scale = Vector2(0.17337964, 0.20484291)
 texture = ExtResource("11_l0gnn")
+
+[node name="back" type="Node2D" parent="." unique_id=1973465737]
+
+[node name="Background" type="Sprite2D" parent="back" unique_id=769718918]
+position = Vector2(94.99999, 157)
+scale = Vector2(0.17407405, 0.2054974)
+texture = ExtResource("9_6lcat")

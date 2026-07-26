@@ -10,8 +10,9 @@ var score1 = 0
 var score2 = 0
 var modifier_selected = 0
 var max_modifier_selected = 1
-var modifier_used1 = false
-var modifier_used2 = false
+var locked_element : int = -1
+var locked_player : int = -1
+var locked_used = false
 var modifier = []
 var playable_cards1 = []
 var playable_cards2 = []
@@ -24,7 +25,6 @@ var is_modifier_mode = true
 const cardScene = preload("res://card.tscn")
 func _ready():
 	card_disable()
-	#add_modifier("hehe")
 	if(global.again):
 		_on_start_pressed()
 func _process(delta: float) -> void:
@@ -66,7 +66,7 @@ func _on_timer_timeout() -> void:
 			modifier = []
 			print(global.modifier1)
 			selection_end(global.modifier1)
-			label_animation(global.player2+" select your modifier card",0.5)
+			label_animation(global.player2+" select your modifier card",0.5,50)
 		tween.tween_callback(selection_start)
 	else:
 		turn = 1
@@ -78,7 +78,7 @@ func _on_timer_timeout() -> void:
 			tween.tween_callback(func() : 
 				for card in current_cards:
 					card.visible = false
-					current_cards = playable_cards1
+				current_cards = playable_cards1
 				for card in current_cards:
 					card.visible = true)
 			mmatch()
@@ -92,33 +92,54 @@ func _on_timer_timeout() -> void:
 			tween.tween_callback(game_start)
 		
 func _on_fire_pressed() -> void:
-	element_selected+=1
-	selected.append(0)
-	turn_over($fire)
+	if(locked_element==-1 or not turn==locked_player or locked_used):
+		element_selected+=1
+		selected.append(0)
+		turn_over($fire)
+	else:
+		lock_check(0)
 func _on_paper_pressed() -> void:
-	element_selected+=1
-	selected.append(1)
-	turn_over($paper)
+	if(locked_element==-1 or not turn==locked_player or locked_used):
+		element_selected+=1
+		selected.append(1)
+		turn_over($paper)
+	else:
+		lock_check(1)
 func _on_water_pressed() -> void:
-	element_selected+=1
-	selected.append(2)
-	turn_over($water)
+	if(locked_element==-1 or not turn==locked_player or locked_used):
+		element_selected+=1
+		selected.append(2)
+		turn_over($water)
+	else:
+		lock_check(2)
 func _on_earth_pressed() -> void:
-	element_selected+=1
-	selected.append(3)
-	turn_over($earth)
+	if(locked_element==-1 or not turn==locked_player or locked_used):
+		element_selected+=1
+		selected.append(3)
+		turn_over($earth)
+	else:
+		lock_check(3)
 func _on_scissors_pressed() -> void:
-	element_selected+=1
-	selected.append(4)
-	turn_over($scissors)
+	if(locked_element==-1 or not turn==locked_player or locked_used):
+		element_selected+=1
+		selected.append(4)
+		turn_over($scissors)
+	else:
+		lock_check(4)
 func _on_air_pressed() -> void:
-	element_selected+=1
-	selected.append(5)
-	turn_over($air)
+	if(locked_element==-1 or not turn==locked_player or locked_used):
+		element_selected+=1
+		selected.append(5)
+		turn_over($air)
+	else:
+		lock_check(5)
 func _on_rock_pressed() -> void:
-	element_selected+=1
-	selected.append(6)
-	turn_over($rock)
+	if(locked_element==-1 or not turn==locked_player or locked_used):
+		element_selected+=1
+		selected.append(6)
+		turn_over($rock)
+	else:
+		lock_check(6)
 
 func turn_over(card):
 	if(tween == null or not tween.is_valid()):
@@ -139,8 +160,6 @@ func selection_start():
 	for i in current_cards.size():
 		current_cards[i].rotation = (i-4)*5/180.0*PI
 		current_cards[i].position = Vector2(615,815)
-	print("2")
-	print(current_cards)
 	for i in current_cards.size():
 		pos.y = (i/4)*(340)+355
 		if i<4:
@@ -182,14 +201,15 @@ func turn_back(card):
 	
 func mmatch():
 	for i in range(max_element_selected):
-		if(fight(global.selected1[i],global.selected2[i])==global.selected1[i]):
+		var res = fight(global.selected1[i],global.selected2[i])
+		if(str(res)==str(global.selected1[i])):
 			print_description(global.selected1[i],global.selected2[i])
 			score1+=1
-		elif(fight(global.selected1[i],global.selected2[i])==global.selected2[i]):
+		elif(str(res)==str(global.selected2[i])):
 			print_description(global.selected2[i],global.selected1[i])
 			score2+=1
 	if(score1>score2):
-		label_animation(global.player1 + " won",0.5)
+		label_animation(global.player1 + " won",0.5) 
 		global.score1 += 1
 	elif(score2>score1):
 		label_animation(global.player2 + " won",0.5)
@@ -265,7 +285,24 @@ func fight(element1,element2):
 			return element2
 		else:
 			return null
-	#elif(element1==7):
+	elif(element1==7):
+		if(element2<7 or element2==8):
+			locked_element = element2
+			locked_player = 2
+			playable_cards1[playable_cards1.size()-1].visible = false
+			playable_cards1.remove_at(playable_cards1.size()-1)
+			label_animation(str(global.player1) + " used lock",1,70)
+			label_animation(str(global.player2) + " must use " + number_to_card(element2).name + " on next round",1,50)
+		return null
+	elif(element2==7):
+		if(element1<7 or element1==8):
+			locked_element = element1
+			locked_player = 1
+			playable_cards2[playable_cards2.size()-1].visible = false
+			playable_cards2.remove_at(playable_cards2.size()-1)
+			label_animation(str(global.player2) + " used lock",1,70)
+			label_animation(str(global.player1) + " must use " + number_to_card(element1).name + " on next round",1,50)
+		return null
 	return null
 func label_animation(word,duration,size_font=150):
 	tween.tween_property($Label,"text",word,0.01)
@@ -314,7 +351,7 @@ func _on_start_pressed() -> void:
 		match_game = "modifier_selection"
 		current_cards = $modifiers.get_children()
 		cards_show()
-		label_animation(global.player1+" select your modifier card",0.5)
+		label_animation(global.player1+" select your modifier card",0.5,50)
 		tween.tween_callback(selection_start)
 	else:
 		game_start()
@@ -417,9 +454,11 @@ func _on_lock_pressed() -> void:
 		modifier.append(7)
 		modifier_selected+=1
 	else:
-		element_selected+=1
-		selected.append(7)
-		
+		if(locked_element==-1 or not turn==locked_player or locked_used):
+			element_selected+=1
+			selected.append(7)
+		else:
+			lock_check(7)
 
 func _on_change_pressed() -> void:
 	turn_over($modifiers.get_child(1))
@@ -427,8 +466,11 @@ func _on_change_pressed() -> void:
 		modifier.append(8)
 		modifier_selected+=1
 	else:
-		element_selected+=1
-		selected.append(8)
+		if(locked_element==-1 or not turn==locked_player or locked_used):
+			element_selected+=1
+			selected.append(8)
+		else:
+			lock_check(8)
 
 func _on_plus_one_pressed() -> void:
 	turn_over($modifiers.get_child(2))
@@ -436,8 +478,11 @@ func _on_plus_one_pressed() -> void:
 		modifier.append(9)
 		modifier_selected+=1
 	else:
-		element_selected+=1
-		selected.append(9)
+		if(locked_element==-1 or not turn==locked_player or locked_used):
+			element_selected+=1
+			selected.append(9)
+		else:
+			lock_check(9)
 
 func card_to_number(card):
 	for i in range(0,7):
@@ -454,3 +499,21 @@ func number_to_card(number):
 		return get_child(number+4)
 	else:
 		return $modifiers.get_child(number-7)
+
+func lock_check(num):
+	if(num==locked_element):
+		element_selected+=1
+		selected.append(num)
+		turn_over(number_to_card(num))
+		locked_used = true
+	elif(element_selected==max_element_selected-2):
+		element_selected+=2
+		selected.append(num)
+		turn_over(number_to_card(num))
+		selected.append(locked_element)
+		turn_over(number_to_card(locked_element))
+		locked_used = true
+	else:
+		element_selected+=1
+		selected.append(num)
+		turn_over(number_to_card(num))
