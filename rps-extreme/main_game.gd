@@ -26,7 +26,7 @@ func _ready():
 	card_disable()
 	#add_modifier("hehe")
 	if(global.again):
-		game_start()
+		_on_start_pressed()
 func _process(delta: float) -> void:
 	global.time_past += delta
 	if((tween == null or not tween.is_valid()) and game_started and not game_paused):
@@ -35,7 +35,7 @@ func _process(delta: float) -> void:
 		get_tree().change_scene_to_file("res://game_over.tscn")
 	if(card_enabled and tween != null and tween.is_valid() and game_started):
 		card_disable()
-	if(element_selected+modifier_selected>=max_element_selected):
+	if(element_selected>=max_element_selected):
 		_on_timer_timeout()
 		element_selected=0
 		modifier_selected=0
@@ -57,6 +57,7 @@ func _on_timer_timeout() -> void:
 		else:
 			global.modifier1 = modifier
 			modifier = []
+			print(global.modifier1)
 			selection_end(global.modifier1)
 			label_animation(global.player2+" select your modifier card",0.5)
 		selection_start()
@@ -136,9 +137,9 @@ func selection_start():
 	$Label.visible = true
 
 func selection_end(selected_cards):
-	for i in current_cards.size():
-		if(selected_cards.find(i)==-1):
-			turn_back(current_cards[i])
+	for card in current_cards:
+		if(selected_cards.find(card_to_number(card))==-1):
+			turn_back(card)
 	for i in current_cards.size():
 		var angle = (i-4)*5/180.0*PI
 		tween.tween_property(current_cards[i],"rotation",angle,0.15)
@@ -245,6 +246,7 @@ func fight(element1,element2):
 			return element2
 		else:
 			return null
+	#elif(element1==7):
 	return null
 func label_animation(word,duration,size_font=150):
 	tween.tween_property($Label,"text",word,0.01)
@@ -264,9 +266,9 @@ func game_start():
 		playable_cards1.append(get_child(i))
 		playable_cards2.append(get_child(i))
 	for card in global.modifier1:
-		playable_cards1.append($modifiers.get_child(card))
+		playable_cards1.append($modifiers.get_child(card-7))
 	for card in global.modifier2:
-		playable_cards2.append($modifiers.get_child(card))
+		playable_cards2.append($modifiers.get_child(card-7))
 	for card in $modifiers.get_children():
 		card.visible = false
 	current_cards = playable_cards1
@@ -277,11 +279,12 @@ func game_start():
 	selection_start()
 
 func _on_start_pressed() -> void:
-	if($input1.text=="" or $input2.text==""):
+	if(($input1.text=="" or $input2.text=="") and (global.player1=="" or global.player2=="")):
 		return
+	elif (global.player1=="" or global.player2==""):
+		global.player1 = $input1.text
+		global.player2 = $input2.text
 	game_started = true
-	global.player1 = $input1.text
-	global.player2 = $input2.text
 	$start.visible = false
 	$input1.visible = false
 	$input2.visible = false
@@ -393,15 +396,44 @@ func cards_hide():
 
 func _on_lock_pressed() -> void:
 	turn_over($modifiers.get_child(0))
-	modifier.append(0)
-	modifier_selected+=1
+	if(str(match_game)=="modifier_selection"):
+		modifier.append(7)
+		modifier_selected+=1
+	else:
+		element_selected+=1
+		selected.append(7)
+		
 
 func _on_change_pressed() -> void:
 	turn_over($modifiers.get_child(1))
-	modifier.append(1)
-	modifier_selected+=1
+	if(str(match_game)=="modifier_selection"):
+		modifier.append(8)
+		modifier_selected+=1
+	else:
+		element_selected+=1
+		selected.append(8)
 
 func _on_plus_one_pressed() -> void:
 	turn_over($modifiers.get_child(2))
-	modifier.append(2)
-	modifier_selected+=1
+	if(str(match_game)=="modifier_selection"):
+		modifier.append(9)
+		modifier_selected+=1
+	else:
+		element_selected+=1
+		selected.append(9)
+
+func card_to_number(card):
+	for i in range(0,7):
+		if(get_child(i+4)==card):
+			return i
+	var i = 7
+	for modifier_card in $modifiers.get_children():
+		if(modifier_card==card):
+			return i
+		i+=1
+
+func number_to_card(number):
+	if number<7:
+		return get_child(number+4)
+	else:
+		return $modifiers.get_child(number-7)
