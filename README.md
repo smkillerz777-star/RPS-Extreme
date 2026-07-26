@@ -3,6 +3,13 @@
 This is a rps 7 variant. In this game , player can choose how many rounds they want to play and how many cards a player want to select in each round. This takes rps to extreme since rps is fundamentally a social manipulation and prediction game where you try to manipulate other player to give you more information and predict their next moves. Here, by default you select 3 cards and their order matters thus, adding extra information that need to be acquire and extra fun. Hope you enjoy the game. 
 # How It Works
 In default settings, players play 3 rounds and each play selects 3 cards let say player1 picks air,water and earth and player 2 picks fire,rock and scissors. After the selection, their cards will fight in the order of their selection i.e. first card of player1 will fight the first card of player2 and so on . In our example, player1 will win the first fight  and second fight since air blows out fire and water breaks down rock, player2 will win the third fight as earth dulls scissors. Thus, player1 will win the first round. Whoever wins the most rounds at the end of selected number of rounds will win the game in case of tie at the end of selected round, a tie breaker match will be played and whoever wins that match will win the game.
+# What's New
+Modifier cards are added!
+Modifiers are special cards that can be used only once per match. There are currently 3 modifiers in the game:
+1) Lock Card: this card forces the other player to use the same card the lock card was played against in the next round .
+2) Change Card: This card tells the player in advance if they will use and give them a chance to change their cards order to turn the tide
+3) +1 Card: this cards increases the number of cards that player can select by 1(excluding +1 card) , the next 2 cards after +1 fight as a combined unit to the opponents cards corresponding to the +1 card.. The result is the best result between the two.Ex: next two cards after +1 are fire and water and corresponding opponent card is air since air loses to fire but wins against water the winner will be the first player since +1 chooses the best result.<br><br>
+In a normal fight both Change and Lock card ties with the standard 7 elements. There are also some special effects like when lock fight against lock nothing happens. I would like players to discover these combinations while playing
 # Motivation 
 The game is highly inspired by the video: https://youtu.be/r2whuz6tkb0?si=QFepeY7rnijyg28Z . This video explains why rps is a good game and how can we make it even better. I have implemented some of the ideas of the video like increasing rounds, increasing gestures,allowing combos and two paradox.
 # Screenshots
@@ -10,6 +17,7 @@ The game is highly inspired by the video: https://youtu.be/r2whuz6tkb0?si=QFepeY
 <img width="1080" height="720" alt="Screenshot 2026-07-23 165733" src="https://github.com/user-attachments/assets/5814a82d-e87d-4ab8-aab7-35ceddad1c8b" />
 <img width="1080" height="720" alt="Screenshot 2026-07-23 165745" src="https://github.com/user-attachments/assets/d077182e-88b3-4f6b-aecf-257e2d0215b9" />
 <img width="1080" height="720" alt="Screenshot 2026-07-23 165758" src="https://github.com/user-attachments/assets/c63edc45-a923-4a1f-b7ce-0498a898ca82" />
+<img width="1080" height="720" alt="Screenshot 2026-07-27 022941" src="https://github.com/user-attachments/assets/ec59767b-f616-4718-bb2c-8403747f7add" />
 <img width="1080" height="720" alt="Screenshot 2026-07-23 165827" src="https://github.com/user-attachments/assets/00b92e92-0da9-400d-add3-bc22bad99741" />
 <img width="1080" height="720" alt="Screenshot 2026-07-23 170001" src="https://github.com/user-attachments/assets/6b82281c-a8cb-4011-a4ac-22fe4e24733a" />
 
