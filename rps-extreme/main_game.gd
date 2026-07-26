@@ -52,7 +52,14 @@ func _on_timer_timeout() -> void:
 			global.selected1 = selected
 			selected = []
 			selection_end(global.selected1)
-			current_cards = playable_cards2
+			tween.tween_callback(func() : 
+				for card in current_cards:
+					card.visible = false
+				current_cards = playable_cards2
+				print("1")
+				print(current_cards)
+				for card in current_cards:
+					card.visible = true)
 			label_animation(global.player2+" turn",0.5)
 		else:
 			global.modifier1 = modifier
@@ -60,7 +67,7 @@ func _on_timer_timeout() -> void:
 			print(global.modifier1)
 			selection_end(global.modifier1)
 			label_animation(global.player2+" select your modifier card",0.5)
-		selection_start()
+		tween.tween_callback(selection_start)
 	else:
 		turn = 1
 		if(str(match_game)!="modifier_selection"):
@@ -68,8 +75,13 @@ func _on_timer_timeout() -> void:
 			selected = []
 			match_game+=1
 			selection_end(global.selected2)
+			tween.tween_callback(func() : 
+				for card in current_cards:
+					card.visible = false
+					current_cards = playable_cards1
+				for card in current_cards:
+					card.visible = true)
 			mmatch()
-			current_cards = playable_cards1
 			$round.text = "Round: " + str(match_game)
 		else:
 			global.modifier2 = modifier
@@ -121,7 +133,14 @@ func turn_over(card):
 	tween.tween_property(card,"scale:x",1.0,0.15)
 
 func selection_start():
+	tween.kill()
+	tween = create_tween()
 	var pos = Vector2.ZERO
+	for i in current_cards.size():
+		current_cards[i].rotation = (i-4)*5/180.0*PI
+		current_cards[i].position = Vector2(615,815)
+	print("2")
+	print(current_cards)
 	for i in current_cards.size():
 		pos.y = (i/4)*(340)+355
 		if i<4:
@@ -182,7 +201,7 @@ func mmatch():
 		label_animation(global.player1 + " turn",0.5)
 		score1 = 0
 		score2 = 0
-		selection_start()
+		tween.tween_callback(selection_start)
 	else: 
 		if(global.score1>global.score2):
 			global.winner = global.player1
@@ -194,7 +213,7 @@ func mmatch():
 			label_animation(global.player1 + " turn",0.5)
 			score1 = 0
 			score2 = 0
-			selection_start()
+			tween.tween_callback(selection_start)
 
 func fight(element1,element2):
 	if(element1==0):
@@ -276,7 +295,7 @@ func game_start():
 	tween = create_tween()
 	cards_show()
 	label_animation(global.player1+" turn",0.5)
-	selection_start()
+	tween.tween_callback(selection_start)
 
 func _on_start_pressed() -> void:
 	if(($input1.text=="" or $input2.text=="") and (global.player1=="" or global.player2=="")):
@@ -296,18 +315,18 @@ func _on_start_pressed() -> void:
 		current_cards = $modifiers.get_children()
 		cards_show()
 		label_animation(global.player1+" select your modifier card",0.5)
-		selection_start()
+		tween.tween_callback(selection_start)
 	else:
 		game_start()
 
 func  card_enable():
-	for i in current_cards.size():
-		current_cards[i].get_child(1).disabled = false
+	for card in current_cards:
+		card.get_child(1).disabled = false
 	card_enabled = true
 
 func  card_disable():
-	for i in current_cards.size():
-		current_cards[i].get_child(1).disabled = true
+	for card in current_cards:
+		card.get_child(1).disabled = true
 	card_enabled = false
 
 func print_description(winner,loser):
