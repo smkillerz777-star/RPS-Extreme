@@ -13,6 +13,7 @@ var max_modifier_selected = 1
 var locked_element : int = -1
 var locked_player : int = -1
 var locked_used = false
+var change_used = false
 var modifier = []
 var playable_cards1 = []
 var playable_cards2 = []
@@ -48,6 +49,7 @@ func _process(delta: float) -> void:
 func _on_timer_timeout() -> void:
 	if(turn==1):
 		turn = 2
+		print("yup that is the problem2")
 		if(str(match_game)!="modifier_selection"):
 			global.selected1 = selected
 			selected = []
@@ -56,20 +58,18 @@ func _on_timer_timeout() -> void:
 				for card in current_cards:
 					card.visible = false
 				current_cards = playable_cards2
-				print("1")
-				print(current_cards)
 				for card in current_cards:
 					card.visible = true)
 			label_animation(global.player2+" turn",0.5)
 		else:
 			global.modifier1 = modifier
 			modifier = []
-			print(global.modifier1)
 			selection_end(global.modifier1)
 			label_animation(global.player2+" select your modifier card",0.5,50)
 		tween.tween_callback(selection_start)
 	else:
 		turn = 1
+		print("yup that is the problem")
 		if(str(match_game)!="modifier_selection"):
 			global.selected2 = selected
 			selected = []
@@ -154,12 +154,14 @@ func turn_over(card):
 	tween.tween_property(card,"scale:x",1.0,0.15)
 
 func selection_start():
+	print("strted")
 	tween.kill()
 	tween = create_tween()
 	var pos = Vector2.ZERO
 	for i in current_cards.size():
 		current_cards[i].rotation = (i-4)*5/180.0*PI
 		current_cards[i].position = Vector2(615,815)
+	print(current_cards)
 	for i in current_cards.size():
 		pos.y = (i/4)*(340)+355
 		if i<4:
@@ -200,6 +202,49 @@ func turn_back(card):
 	tween.tween_property(card,"scale:x",1.0,0.1)
 	
 func mmatch():
+	if((global.selected1.find(8)!=-1 or global.selected2.find(8)!=-1) and not change_used):
+		var s1 = 0
+		var s2 = 0
+		for i in range(max_element_selected):
+			var res = fight(global.selected1[i],global.selected2[i])
+			if(str(res)==str(global.selected1[i])):
+				s1+=1
+			elif(str(res)==str(global.selected2[i])):
+				s2+=1
+		if(s1>=s2 and global.selected2.find(8)!=-1):
+			label_animation(global.player1 + " will win the match",0.5,100) 
+			label_animation(global.player2 + " turn",0.5) 
+			tween.tween_callback(func() : 
+				for card in current_cards:
+					card.visible = false
+				current_cards = []
+				for num in global.selected2:
+					current_cards.append(number_to_card(num))
+				for card in current_cards:
+					card.visible = true
+				print(current_cards)
+				element_selected = 0
+				selection_start()
+				turn = 2
+				change_used = true)
+			return
+		elif(s2>=s1 and global.selected1.find(8)!=-1):
+			label_animation(global.player2 + " will win the match",0.5,100) 
+			label_animation(global.player1 + " turn",0.5) 
+			tween.tween_callback(func() : 
+				for card in current_cards:
+					card.visible = false
+				current_cards = []
+				for num in global.selected1:
+					current_cards.append(number_to_card(num))
+				for card in current_cards:
+					card.visible = true
+				print(current_cards)
+				element_selected = 0
+				selection_start()
+				turn = 1
+				change_used = true)
+			return
 	for i in range(max_element_selected):
 		var res = fight(global.selected1[i],global.selected2[i])
 		if(str(res)==str(global.selected1[i])):
@@ -302,6 +347,14 @@ func fight(element1,element2):
 			playable_cards2.remove_at(playable_cards2.size()-1)
 			label_animation(str(global.player2) + " used lock",1,70)
 			label_animation(str(global.player1) + " must use " + number_to_card(element1).name + " on next round",1,50)
+		return null
+	elif(element1==8):
+		playable_cards1[playable_cards1.size()-1].visible = false
+		playable_cards1.remove_at(playable_cards1.size()-1)
+		return null
+	elif(element2==8):
+		playable_cards2[playable_cards2.size()-1].visible = false
+		playable_cards2.remove_at(playable_cards2.size()-1)
 		return null
 	return null
 func label_animation(word,duration,size_font=150):
@@ -419,7 +472,6 @@ func _on_resume_pressed() -> void:
 	game_paused = false
 
 func cards_show():
-	print("working1")
 	for card in current_cards:
 		card.visible = true
 		card.position = Vector2(615,1050)
